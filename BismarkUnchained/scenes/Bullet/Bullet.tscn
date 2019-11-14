@@ -1,0 +1,50 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://scenes/Bullet/Bullet.gd" type="Script" id=1]
+[ext_resource path="res://scenes/Bullet/Body.gd" type="Script" id=2]
+
+[sub_resource type="CapsuleShape2D" id=1]
+radius = 2.0
+height = 10.0
+
+[sub_resource type="CubeMesh" id=2]
+size = Vector3( 10, 4, 2 )
+
+[sub_resource type="SphereMesh" id=3]
+radius = 2.0
+height = 4.0
+
+[sub_resource type="ParticlesMaterial" id=4]
+emission_shape = 2
+emission_box_extents = Vector3( 5, 5, 1 )
+flag_disable_z = true
+gravity = Vector3( -89, 0, 0 )
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+color = Color( 1, 0, 0, 1 )
+
+[node name="Bullet" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="Body" type="KinematicBody2D" parent="."]
+script = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Body"]
+rotation = 1.5708
+shape = SubResource( 1 )
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="Body"]
+mesh = SubResource( 2 )
+
+[node name="MeshInstance2DRight" type="MeshInstance2D" parent="Body"]
+position = Vector2( 5, 0 )
+mesh = SubResource( 3 )
+
+[node name="MeshInstance2DLeft" type="MeshInstance2D" parent="Body"]
+position = Vector2( -5, 0 )
+mesh = SubResource( 3 )
+
+[node name="Particles2D" type="Particles2D" parent="Body"]
+position = Vector2( -7, 0 )
+visibility_rect = Rect2( -10, -10, 30, 20 )
+process_material = SubResource( 4 )
