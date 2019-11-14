@@ -12,4 +12,5 @@ func _physics_process(delta):
 	var kc = move_and_collide(velocity * delta)
 	if kc:
 		emit_signal('collided', kc.collider)
+		get_parent().explode()
 		queue_free()
