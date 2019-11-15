@@ -16,7 +16,7 @@ _global_script_class_icons={
 [application]
 
 config/name="BismarkUnchained"
-run/main_scene="res://scenes/Main.tscn"
+run/main_scene="res://scenes/Main/Main.tscn"
 config/icon="res://images/icon.png"
 
 [display]
