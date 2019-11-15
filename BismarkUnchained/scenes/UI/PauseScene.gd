@@ -11,9 +11,9 @@ func is_pause():
 func _process(delta):
 	if Input.is_action_just_pressed("ui_pause"):
 		if paused:
-			$PausePanel.show()
-		else:
 			$PausePanel.hide()
+		else:
+			$PausePanel.show()
 		paused = !paused
 		get_tree().paused = paused
 	elif Input.is_action_pressed("ui_cancel"):
