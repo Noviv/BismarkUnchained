@@ -19,6 +19,7 @@ emission_shape = 2
 emission_box_extents = Vector3( 5, 5, 1 )
 flag_disable_z = true
 gravity = Vector3( -89, 0, 0 )
+angular_velocity = 4.00579e-011
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
 color = Color( 1, 0, 0, 1 )
@@ -30,6 +31,7 @@ flag_disable_z = true
 spread = 180.0
 gravity = Vector3( 0, 0, 0 )
 initial_velocity = 100.0
+angular_velocity = 1.0
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
 
