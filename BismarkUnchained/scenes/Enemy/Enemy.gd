@@ -4,7 +4,7 @@ signal enemy_hit
 
 
 func _ready():
- 	pass
+	pass
 
 func _process(delta):
 	var pos = get_global_position()
