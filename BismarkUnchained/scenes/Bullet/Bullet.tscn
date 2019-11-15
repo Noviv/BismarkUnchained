@@ -45,6 +45,7 @@ rotation = 1.5708
 shape = SubResource( 1 )
 
 [node name="Mesh" type="Node2D" parent="Body"]
+editor/display_folded = true
 
 [node name="CenterMesh" type="MeshInstance2D" parent="Body/Mesh"]
 mesh = SubResource( 2 )

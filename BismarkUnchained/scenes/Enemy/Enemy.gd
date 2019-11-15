@@ -2,9 +2,8 @@ extends KinematicBody2D
 
 signal enemy_hit
 
-
-func _ready():
- 	pass
+func damage():
+	print('hit enemy')
 
 func _process(delta):
 	var pos = get_global_position()
