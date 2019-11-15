@@ -1,23 +1,22 @@
 extends KinematicBody2D
 
-var accel = 50
-var max_velocity = 10
+var accel = 3750
+var max_velocity = 750
 
-var velocity
 var curr_velocity = Vector2(0, 0)
 
 func damage():
 	print('hit player')
 
 func _process(delta):
-	#velocity = Vector2(Input.get_joy_axis(0, 0), Input.get_joy_axis(0, 1))
+	#var velocity = Vector2(Input.get_joy_axis(0, 0), Input.get_joy_axis(0, 1))
 	#if (velocity.length() < 0.2):
 	#	velocity = Vector2(0, 0)
 	#if (velocity.length() > 1):
 	#	velocity = velocity.normalized()
 	#velocity = velocity * velocity * velocity
 	
-	velocity = Vector2(0, 0)
+	var velocity = Vector2(0, 0)
 	if Input.is_action_pressed("player_up"):
 		velocity += Vector2(0, -1)
 	if Input.is_action_pressed("player_down"):
@@ -36,6 +35,6 @@ func _process(delta):
 	if new_velocity.length() < 0.5 && velocity.length() == 0:
 		new_velocity = velocity
 	velocity = new_velocity
-	move_and_collide(velocity)
+	move_and_collide(velocity * delta)
 	curr_velocity = velocity
-	get_node("/root/Main").time_delta = curr_velocity.length() / 15
+	get_node("/root/Main").time_delta = curr_velocity.length() / max_velocity
