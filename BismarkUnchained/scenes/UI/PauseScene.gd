@@ -1,9 +1,6 @@
 extends Node2D
 
 var paused = false
-
-func _ready():
-	$PausePanel.hide()
 	
 func is_pause():
 	return paused
