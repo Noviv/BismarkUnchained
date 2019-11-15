@@ -2,7 +2,6 @@ extends Node2D
 
 var paused = false
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
 	$PausePanel.hide()
 	
@@ -13,12 +12,12 @@ func _process(delta):
 	if Input.is_action_just_pressed("ui_pause"):
 		if(!paused):
 			$PausePanel.show()
-			get_tree().paused = true
 			paused = true
+			get_tree().paused = paused
 		else:
 			$PausePanel.hide()
-			get_tree().paused = false
 			paused = false
+			get_tree().paused = paused
 	elif Input.is_action_pressed("ui_cancel"):
 		get_tree().quit()
 
