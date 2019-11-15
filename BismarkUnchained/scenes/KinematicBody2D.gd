@@ -3,6 +3,9 @@ extends KinematicBody2D
 var velocity
 var curr_velocity = Vector2(0, 0)
 
+func damage():
+	print('hit player')
+
 func _process(delta):
 	velocity = Vector2(0, 0)
 	#This will change to controller input

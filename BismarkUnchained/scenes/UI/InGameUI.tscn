@@ -1,0 +1,35 @@
+[gd_scene format=2]
+
+[node name="Control" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 1.22775
+margin_right = 1.22778
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="WaveLabel" type="Label" parent="."]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 138.0
+margin_bottom = 65.0
+text = "Current Wave: "
+
+[node name="WaveNumberLabel" type="Label" parent="."]
+margin_left = 100.911
+margin_top = 7.45547
+margin_right = 173.911
+margin_bottom = 33.4555
+text = "0"
+
+[node name="WaveWarningLabel" type="Label" parent="."]
+margin_left = 374.0
+margin_top = 13.0
+margin_right = 824.0
+margin_bottom = 102.0
+text = "Wave X coming in Y seconds"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
