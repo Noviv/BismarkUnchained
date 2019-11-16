@@ -3,7 +3,7 @@
 [ext_resource path="res://scenes/Bullet/Bullet.gd" type="Script" id=1]
 [ext_resource path="res://scenes/Bullet/Body.gd" type="Script" id=2]
 
-[sub_resource type="CapsuleShape2D" id=1]
+[sub_resource type="CapsuleShape2D" id=6]
 radius = 2.0
 height = 10.0
 
@@ -41,7 +41,8 @@ script = ExtResource( 2 )
 
 [node name="CollisionShape" type="CollisionShape2D" parent="Body"]
 rotation = 1.5708
-shape = SubResource( 1 )
+shape = SubResource( 6 )
+one_way_collision = true
 
 [node name="Mesh" type="Node2D" parent="Body"]
 editor/display_folded = true
@@ -62,13 +63,9 @@ position = Vector2( -7, 0 )
 process_material = SubResource( 4 )
 
 [node name="Explosion" type="Particles2D" parent="."]
-position = Vector2( 7, 0 )
 emitting = false
-amount = 500
+amount = 250
 lifetime = 0.5
 one_shot = true
-explosiveness = 0.5
+explosiveness = 0.8
 process_material = SubResource( 5 )
-
-[node name="FreeTimer" type="Timer" parent="."]
-one_shot = true
