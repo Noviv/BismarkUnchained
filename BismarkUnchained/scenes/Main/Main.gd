@@ -16,3 +16,4 @@ func set_time_delta(new_delta):
 	if new_delta > 1:
 		new_delta = 1
 	time_delta = new_delta
+	

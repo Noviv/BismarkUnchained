@@ -57,11 +57,11 @@ func move_translate(delta):
 
 func move_rotate():
 	if controller:
-		var direction = Vector2(Input.get_joy_axis(device, 3), Input.get_joy_axis(device, 4))
+		var direction = Vector2(Input.get_joy_axis(device, 2), Input.get_joy_axis(device, 3))
 		if direction.length() > 0.5:
 			rotate_dir(direction)
 	else:
-		var direction = get_node("../..").get_global_mouse_position() - get_global_position()
+		var direction = get_global_mouse_position() - get_global_position()
 		rotate_dir(direction)
 		
 
