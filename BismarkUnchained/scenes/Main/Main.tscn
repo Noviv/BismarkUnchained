@@ -21,4 +21,4 @@ position = Vector2( 878.557, 434.408 )
 
 [node name="PauseScene" parent="." instance=ExtResource( 5 )]
 
-[node name="Control" parent="." instance=ExtResource( 6 )]
+[node name="UI" parent="." instance=ExtResource( 6 )]
