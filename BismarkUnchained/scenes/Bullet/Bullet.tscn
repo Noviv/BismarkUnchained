@@ -14,15 +14,6 @@ size = Vector3( 10, 4, 2 )
 radius = 2.0
 height = 4.0
 
-[sub_resource type="ParticlesMaterial" id=4]
-emission_shape = 2
-emission_box_extents = Vector3( 5, 5, 1 )
-flag_disable_z = true
-gravity = Vector3( -89, 0, 0 )
-orbit_velocity = 0.0
-orbit_velocity_random = 0.0
-color = Color( 1, 0, 0, 1 )
-
 [sub_resource type="ParticlesMaterial" id=5]
 emission_shape = 1
 emission_sphere_radius = 2.0
@@ -32,6 +23,15 @@ gravity = Vector3( 0, 0, 0 )
 initial_velocity = 100.0
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
+
+[sub_resource type="ParticlesMaterial" id=4]
+emission_shape = 1
+emission_sphere_radius = 1.5
+flag_disable_z = true
+gravity = Vector3( -89, 0, 0 )
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+color = Color( 1, 0, 0, 1 )
 
 [node name="Bullet" type="Node2D"]
 script = ExtResource( 1 )
@@ -58,10 +58,6 @@ mesh = SubResource( 3 )
 position = Vector2( -5, 0 )
 mesh = SubResource( 3 )
 
-[node name="Afterburner" type="Particles2D" parent="Body"]
-position = Vector2( -7, 0 )
-process_material = SubResource( 4 )
-
 [node name="Explosion" type="Particles2D" parent="."]
 emitting = false
 amount = 250
@@ -69,3 +65,8 @@ lifetime = 0.5
 one_shot = true
 explosiveness = 0.8
 process_material = SubResource( 5 )
+
+[node name="Afterburner" type="Particles2D" parent="."]
+lifetime = 0.5
+local_coords = false
+process_material = SubResource( 4 )
