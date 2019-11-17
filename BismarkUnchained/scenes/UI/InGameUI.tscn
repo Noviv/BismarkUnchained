@@ -47,4 +47,4 @@ margin_bottom = 721.0
 custom_styles/fg = SubResource( 1 )
 custom_styles/bg = SubResource( 2 )
 step = 1.0
-value = 10.0
+value = 100.0
