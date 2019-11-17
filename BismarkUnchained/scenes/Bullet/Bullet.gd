@@ -13,13 +13,13 @@ func explode(pos):
 func _process(delta):
 	if has_node('Body'):
 		$Afterburner.global_position = $Body.global_position - Vector2(7, 0)
-		$Afterburner.speed_scale = get_node("/root/Main").time_delta
+		$Afterburner.speed_scale = get_node("/root/Main").get_time_delta()
 	else:
 		if time_left < 0:
 			queue_free()
 		else:
-			$Explosion.speed_scale = get_node("/root/Main").time_delta
-			time_left -= delta * get_node("/root/Main").time_delta
+			$Explosion.speed_scale = get_node("/root/Main").get_time_delta()
+			time_left -= delta * get_node("/root/Main").get_time_delta()
 
 # vel is a Vector2
 func init(vel):
