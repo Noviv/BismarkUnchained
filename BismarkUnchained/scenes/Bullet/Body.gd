@@ -1,7 +1,5 @@
 extends KinematicBody2D
 
-signal collided
-
 var velocity = Vector2(100, 0)
 
 func _physics_process(delta):
@@ -9,8 +7,9 @@ func _physics_process(delta):
 	rotation = velocity.angle()
 	
 	# move and check for a collision
-	var kc = move_and_collide(velocity * delta)
+	var kc = move_and_collide(velocity * get_node("/root/Main").time_delta * delta)
 	if kc:
-		emit_signal('collided', kc.collider)
-		get_parent().explode()
+		if kc.collider.has_method('damage'):
+			kc.collider.damage()
+		get_parent().explode(kc.position)
 		queue_free()

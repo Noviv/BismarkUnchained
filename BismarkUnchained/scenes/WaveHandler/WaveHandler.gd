@@ -23,7 +23,7 @@ func start_next_wave():
 	wave_num += 1
 	
 	WUI.get_node("WaveWarningLabel").set_text("Wave " + String(wave_num) + " starting now")
-	WUI.get_node("WaveNumberLabel").set_text(String(wave_num))
+	WUI.get_node("WaveCounter/Value").set_text(String(wave_num))
 	
 	var tempSpawn = TempEnemy.instance()
 	tempSpawn.position = Vector2(rng.randi_range(50, 1150), rng.randi_range(50, 650))
