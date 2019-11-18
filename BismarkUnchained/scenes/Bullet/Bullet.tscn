@@ -3,7 +3,7 @@
 [ext_resource path="res://scenes/Bullet/Bullet.gd" type="Script" id=1]
 [ext_resource path="res://scenes/Bullet/Body.gd" type="Script" id=2]
 
-[sub_resource type="CapsuleShape2D" id=6]
+[sub_resource type="CapsuleShape2D" id=1]
 radius = 2.0
 height = 10.0
 
@@ -14,8 +14,7 @@ size = Vector3( 10, 4, 2 )
 radius = 2.0
 height = 4.0
 
-
-[sub_resource type="ParticlesMaterial" id=5]
+[sub_resource type="ParticlesMaterial" id=4]
 emission_shape = 1
 emission_sphere_radius = 2.0
 flag_disable_z = true
@@ -26,11 +25,12 @@ angular_velocity = 1.0
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
 
-[sub_resource type="ParticlesMaterial" id=4]
+[sub_resource type="ParticlesMaterial" id=5]
 emission_shape = 1
 emission_sphere_radius = 1.5
 flag_disable_z = true
 gravity = Vector3( -89, 0, 0 )
+angular_velocity = 2.06518e-038
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
 color = Color( 1, 0, 0, 1 )
@@ -43,7 +43,7 @@ script = ExtResource( 2 )
 
 [node name="CollisionShape" type="CollisionShape2D" parent="Body"]
 rotation = 1.5708
-shape = SubResource( 6 )
+shape = SubResource( 1 )
 one_way_collision = true
 
 [node name="Mesh" type="Node2D" parent="Body"]
@@ -66,9 +66,9 @@ amount = 250
 lifetime = 0.5
 one_shot = true
 explosiveness = 0.8
-process_material = SubResource( 5 )
+process_material = SubResource( 4 )
 
 [node name="Afterburner" type="Particles2D" parent="."]
 lifetime = 0.5
 local_coords = false
-process_material = SubResource( 4 )
+process_material = SubResource( 5 )
