@@ -23,7 +23,6 @@ position = Vector2( 1280, 360 )
 shape = SubResource( 1 )
 
 [node name="Top" type="StaticBody2D" parent="."]
-editor/display_folded = true
 position = Vector2( 640, 0 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Top"]

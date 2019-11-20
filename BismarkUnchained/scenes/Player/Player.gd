@@ -8,8 +8,11 @@ var curr_velocity = Vector2(0, 0)
 var controller = false
 var device = -1
 
+var health = 100
+
 func damage():
-	print('hit player')
+	health -= 5
+	get_node('/root/Main/UI/Health').value = health
 
 func move_translate(delta):
 	var velocity

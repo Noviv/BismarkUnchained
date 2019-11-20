@@ -14,18 +14,38 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="WaveLabel" type="Label" parent="."]
+[node name="WaveCounter" type="Control" parent="."]
 margin_left = 5.0
 margin_top = 5.0
-margin_right = 125.0
-margin_bottom = 25.0
+margin_right = 5.0
+margin_bottom = 5.0
+
+[node name="Label" type="Label" parent="WaveCounter"]
+margin_right = 94.0
+margin_bottom = 14.0
 text = "Current Wave: "
 
-[node name="WaveNumberLabel" type="Label" parent="."]
-margin_left = 100.911
-margin_top = 7.45547
-margin_right = 173.911
-margin_bottom = 33.4555
+[node name="Value" type="Label" parent="WaveCounter"]
+margin_left = 100.0
+margin_right = 194.0
+margin_bottom = 14.0
+text = "0"
+
+[node name="HighScore" type="Control" parent="."]
+margin_left = 5.0
+margin_top = 24.0
+margin_right = 5.0
+margin_bottom = 24.0
+
+[node name="Label" type="Label" parent="HighScore"]
+margin_right = 94.0
+margin_bottom = 14.0
+text = "High Score"
+
+[node name="Value" type="Label" parent="HighScore"]
+margin_left = 100.0
+margin_right = 194.0
+margin_bottom = 14.0
 text = "0"
 
 [node name="WaveWarningLabel" type="Label" parent="."]
@@ -47,4 +67,15 @@ margin_bottom = 721.0
 custom_styles/fg = SubResource( 1 )
 custom_styles/bg = SubResource( 2 )
 step = 1.0
-value = 10.0
+value = 100.0
+
+[node name="Score" type="Label" parent="."]
+margin_left = 415.0
+margin_top = 30.0
+margin_right = 865.0
+margin_bottom = 50.0
+text = "Score: 0"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
