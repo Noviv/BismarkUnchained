@@ -1,9 +1,9 @@
 extends Node2D
 
-var wave_num = 3
+var wave_num = 0
 var wave_reminder_sent = false
-var wave_length = 6
-var wave_warning = 3
+var wave_length = 12
+var wave_warning = 6
 onready var WUI = get_node("../WaveUI")
 onready var Enemy = load("res://scenes/Enemy/Enemy.tscn")
 onready var Spawner = load("res://scenes/WaveHandler/Spawner.tscn")
