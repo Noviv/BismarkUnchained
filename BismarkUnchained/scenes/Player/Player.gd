@@ -8,6 +8,11 @@ var curr_velocity = Vector2(0, 0)
 var controller = false
 var device = -1
 
+var time_last_shot = -1
+var time_to_shoot = 1
+onready var bullet_sprite = preload("res://scenes/Bullet/Bullet.tscn")
+var last_dir = Vector2(0, 0)
+
 var health = 100
 
 func damage():
@@ -60,13 +65,53 @@ func move_translate(delta):
 
 func move_rotate():
 	if controller:
-		var direction = Vector2(Input.get_joy_axis(device, 2), Input.get_joy_axis(device, 3))
+		var direction = Vector2(Input.get_joy_axis(device, 3), Input.get_joy_axis(device, 4))
 		if direction.length() > 0.5:
+			last_dir = Vector2(direction.x, -direction.y)
+			print(last_dir)
 			rotate_dir(direction)
 	else:
 		var direction = get_global_mouse_position() - get_global_position()
+		last_dir = Vector2(direction.x, -direction.y)
 		rotate_dir(direction)
 		
+
+func shoot():
+	if Input.is_action_pressed("player_shoot"):
+		if get_node("/root/Main").time_elapsed > time_last_shot + time_to_shoot:
+			time_last_shot = get_node("/root/Main").time_elapsed
+			var sprite = bullet_sprite.instance()
+			var x_vel = 0
+			var y_vel = 0
+			#No div by 0
+			if last_dir.x == 0:
+				if last_dir.y == 0:
+					x_vel = 1
+					y_vel = 0
+				else:
+					x_vel = 0
+					y_vel = last_dir.y
+			#Trig
+			else:
+				print(atan(last_dir.y / last_dir.x))
+				if last_dir.x < 0 && last_dir.y < 0:
+					x_vel = -cos(atan(last_dir.y / last_dir.x))
+					y_vel = sin(atan(last_dir.y / last_dir.x))
+				elif last_dir.x < 0 && last_dir.y > 0:
+					x_vel = -cos(atan(last_dir.y / last_dir.x))
+					y_vel = sin(atan(last_dir.y / last_dir.x))
+				elif last_dir.x > 0 && last_dir.y > 0:
+					x_vel = cos(atan(last_dir.y / last_dir.x))
+					y_vel = -sin(atan(last_dir.y / last_dir.x))
+				else:
+					x_vel = cos(atan(last_dir.y / last_dir.x))
+					y_vel = -sin(atan(last_dir.y / last_dir.x))
+				print (x_vel)
+				print (y_vel)
+			sprite.get_node("Body").velocity = Vector2(x_vel, y_vel).normalized() * 100
+			get_parent().add_child(sprite)
+			sprite.global_position = get_global_position() + sprite.get_node("Body").velocity.normalized() * 30
+			
 
 func rotate_dir(direction):
 	if direction.x == 0:
@@ -102,3 +147,4 @@ func _ready():
 func _process(delta):
 	move_translate(delta)
 	move_rotate()
+	shoot()
