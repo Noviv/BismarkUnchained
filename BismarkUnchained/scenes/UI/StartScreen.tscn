@@ -18,6 +18,9 @@ margin_left = 530.0
 margin_top = 375.0
 margin_right = 730.0
 margin_bottom = 575.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Start" type="Button" parent="CenterButtons"]
 margin_right = 200.0
