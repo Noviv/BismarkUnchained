@@ -9,7 +9,6 @@ size = Vector3( 40, 40, 2 )
 extents = Vector2( 20, 20 )
 
 [node name="Root" type="Node2D"]
-scale = Vector2( 1, 1.00827 )
 
 [node name="PlayerBody" type="KinematicBody2D" parent="."]
 script = ExtResource( 1 )

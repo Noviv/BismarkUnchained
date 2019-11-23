@@ -1,6 +1,7 @@
 extends Node2D
 
 var time_delta = 1
+var time_elapsed = 0
 
 func get_time_delta():
 	return time_delta
@@ -17,3 +18,5 @@ func set_time_delta(new_delta):
 		new_delta = 1
 	time_delta = new_delta
 	
+func _process(delta):
+	time_elapsed += delta * time_delta
