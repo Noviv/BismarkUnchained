@@ -9,7 +9,7 @@ var controller = false
 var device = -1
 
 var time_last_shot = -1
-var time_to_shoot = 1
+var time_to_shoot = 0.75
 onready var bullet_sprite = preload("res://scenes/Bullet/Bullet.tscn")
 var last_dir = Vector2(0, 0)
 
@@ -67,12 +67,11 @@ func move_rotate():
 	if controller:
 		var direction = Vector2(Input.get_joy_axis(device, 3), Input.get_joy_axis(device, 4))
 		if direction.length() > 0.5:
-			last_dir = Vector2(direction.x, -direction.y)
-			print(last_dir)
+			last_dir = Vector2(direction.x, direction.y)
 			rotate_dir(direction)
 	else:
 		var direction = get_global_mouse_position() - get_global_position()
-		last_dir = Vector2(direction.x, -direction.y)
+		last_dir = Vector2(direction.x, direction.y)
 		rotate_dir(direction)
 		
 
@@ -83,31 +82,8 @@ func shoot():
 			var sprite = bullet_sprite.instance()
 			var x_vel = 0
 			var y_vel = 0
-			#No div by 0
-			if last_dir.x == 0:
-				if last_dir.y == 0:
-					x_vel = 1
-					y_vel = 0
-				else:
-					x_vel = 0
-					y_vel = last_dir.y
-			#Trig
-			else:
-				print(atan(last_dir.y / last_dir.x))
-				if last_dir.x < 0 && last_dir.y < 0:
-					x_vel = -cos(atan(last_dir.y / last_dir.x))
-					y_vel = sin(atan(last_dir.y / last_dir.x))
-				elif last_dir.x < 0 && last_dir.y > 0:
-					x_vel = -cos(atan(last_dir.y / last_dir.x))
-					y_vel = sin(atan(last_dir.y / last_dir.x))
-				elif last_dir.x > 0 && last_dir.y > 0:
-					x_vel = cos(atan(last_dir.y / last_dir.x))
-					y_vel = -sin(atan(last_dir.y / last_dir.x))
-				else:
-					x_vel = cos(atan(last_dir.y / last_dir.x))
-					y_vel = -sin(atan(last_dir.y / last_dir.x))
-				print (x_vel)
-				print (y_vel)
+			x_vel = cos(atan2(last_dir.y, last_dir.x))
+			y_vel = sin(atan2(last_dir.y, last_dir.x))
 			sprite.get_node("Body").velocity = Vector2(x_vel, y_vel).normalized() * 100
 			get_parent().add_child(sprite)
 			sprite.global_position = get_global_position() + sprite.get_node("Body").velocity.normalized() * 30
@@ -140,7 +116,6 @@ func _ready():
 		controller = true
 		device = 0
 	else:
-		print("kb")
 		controller = false
 	Input.connect("joy_connection_changed", self, "_input_method_changed")
 
