@@ -1,0 +1,6 @@
+outline:
+- intro, what is our game, goals, core feature
+- core gameplay, how we implemented it
+- player input, controls
+- future work (skill tree, better enemy generation, bullet types)
+- conclusion, were we successful, what did we wish we accomplished
