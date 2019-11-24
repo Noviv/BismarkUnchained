@@ -3,6 +3,8 @@ extends Node2D
 var time_delta = 1
 var time_elapsed = 0
 
+var min_time_delta = 0.1
+
 func get_time_delta():
 	return time_delta
 
@@ -12,11 +14,11 @@ func set_time_delta(new_delta):
 		print("time_delta out of bounds")
 		print(new_delta)
 		get_tree().quit()
-	if new_delta < 0:
-		new_delta = 0
-	if new_delta > 1:
-		new_delta = 1
-	time_delta = new_delta
+	time_delta = new_delta * (1 - min_time_delta) + min_time_delta
+	if time_delta < min_time_delta:
+		time_delta = min_time_delta
+	if time_delta > 1:
+		time_delta = 1
 	
 func _process(delta):
 	time_elapsed += delta * time_delta
