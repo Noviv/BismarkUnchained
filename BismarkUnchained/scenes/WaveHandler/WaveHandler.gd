@@ -44,17 +44,25 @@ func spawn_point(center):
 	
 func spawn_circle(center, count):
 	
+	var radius = count * 8
 	
-	var form_radius = Vector2(0, wave_num * 10)
+	if (center.x + radius) > 1150:
+		center.x = center.x - radius
+	elif (center.x - radius) < 100:
+		center.x = center.x + radius
+		
+	if (center.y + radius) > 590:
+		center.y = center.y - radius
+	elif (center.y - radius) < 110:
+		center.y = center.y + radius
+	
+	var form_radius = Vector2(0, count * 8)
 	place_spawner(Vector2(center.x + form_radius.x, center.y + form_radius.y))
 	var form_angle = 6.28/count
 	
 	for i in range(count - 1):
 		form_radius = form_radius.rotated(form_angle)
 		place_spawner(Vector2(center.x + form_radius.x, center.y + form_radius.y))
-		pass
-	
-	pass
 	
 func spawn_arc(center, count, curve):
 	pass
@@ -65,13 +73,14 @@ func spawn_enemies():
 	
 	while(enemy_count > 0):
 		var x = rng.randi_range(50, 1150)
-		var y = rng.randi_range(50, 650)
+		var y = rng.randi_range(50, 550)
 		var center  = Vector2(x, y)
-		var rand_count = rng.randi_range(1, enemy_count)
+		var rand_count = 32
+		while(rand_count > 25):
+			rand_count = rng.randi_range(1, enemy_count)
 		spawn_circle(center, rand_count)
 		enemy_count -= rand_count
 	
-	pass
 	
 	
 func place_spawner(center):
