@@ -15,7 +15,6 @@ __meta__ = {
 }
 
 [node name="WaveCounter" type="Control" parent="."]
-editor/display_folded = true
 margin_left = 5.0
 margin_top = 5.0
 margin_right = 5.0
@@ -33,7 +32,6 @@ margin_bottom = 14.0
 text = "0"
 
 [node name="HighScore" type="Control" parent="."]
-editor/display_folded = true
 margin_left = 5.0
 margin_top = 24.0
 margin_right = 5.0
