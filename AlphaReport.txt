@@ -1,6 +1,86 @@
-outline:
-- intro, what is our game, goals, core feature, how we split the work (matthew)
-- core gameplay, how we implemented it (victor)
-- player input, controls (shray)
-- future work (skill tree, better enemy generation, bullet types) (ben)
-- conclusion, were we successful, what did we wish we accomplished (matthew)
+Bismark Unchained: Alpha Report
+
+We started Bismark Unchained aiming to create a game based on scaling time
+with player velocity, drawing influences and inspiration from SUPERHOT,
+bullet hells, and top-down 2D shooters we’ve all played before. Seeing as
+our core feature was technically interesting but did not create a fun game
+by itself, we also set out to add other technical features like a group of
+specialized/mutually exclusive, infinitely scaling skill trees, and possibly
+new abilities and weaponry. Since our original Bismark group had expanded, we
+knew we had the technical capacity to build out such a game with a little bit
+of organization and consistent meetings. After the first couple of meetings
+we narrowed down who would focus on what: Ben would focus on UI and enemy
+generation, Shray would develop player mechanics, Victor would create enemies
+and game balance, and Matthew would help with UI and implement weaponry. Our
+goal for this Alpha was basically to have a minimally playable game with a
+complete core feature (time scaling) and no bugs, and our goal for the final
+is to submit a fun game with a skill curve complimented by non-core features
+like upgrade trees, new weaponry, and a better procedural generation algorithm.
+
+The basic enemy functions have been completed, but need to be refined and
+balanced. Currently, the enemy continually walks and turns toward the player,
+shooting when the player is within line of sight. Shooting is simply achieved
+by creating a child instance of the Bullet scene in front of the enemy, which
+has its own movement script. The enemy’s movement and shooting are both
+scaled with respect to our global time variable. The faster the player moves,
+the faster enemies move and the faster they are able to shoot more bullets. We
+still need to find a good balance for enemy shooting/movement speed relative
+to player actions, but the current state is a functional MVP. Furthermore,
+we are considering using some sort of advanced pathfinding for enemies to
+track the player, but have not planned how this would interact with other
+game elements yet.
+
+The enemy wave spawning is our main source of “procedural generation”. For
+the Alpha enemies spawn in randomly generated circular formations, making
+it seem like the player is fighting swarms instead of individuals. They
+will spawn in a random number of formations and random numbers within the
+formations. The number of enemies that spawn will scale with wave number,
+thus making the game more chaotic and complicated as the player progresses
+through waves. Further in development, when we have more enemy types, this
+feature will enable much more interesting gameplay strategies. With more
+enemy types the waves - including bosses - and formations will become more
+varied and add a new element to the challenge of the game.
+
+Our game’s unique mechanic, scaling the passage of time to the player’s
+movement speed, demands precise control of player velocity. Because of this,
+our team was hesitant to use keyboard controls. Traditional WASD keyboard
+movement controls would allow only full speed or 0 velocity inputs in
+4 directions. However, we also recognized the technical and logistical
+issues of requiring a controller to play our game, namely 1) not everyone
+has access to a controller and 2) controller axis interpretation changes
+across platforms. It would become more challenging to test and demonstrate and
+would be subject to less consistent input. In the end, we decided to use WASD
+keyboard and mouse controls, with an additional player slow-down with left
+shift. We control player movement with WASD with a separate acceleration and
+deceleration curves. The player always faces the cursor, and left-clicking
+will fire a bullet if enough in-game time has passed since the last time
+the player shot a bullet - this allows for point-and-click aiming which is
+preferable over joystick aiming (#PCmasterrace). These are standard controls
+for a 2D game of this style, and we believe players should have no issues
+adjusting to these controls.
+
+In the Alpha, we only have two types of weaponry: enemy and player
+bullets. Both are implemented with a reload delay so that enemies can’t
+fill the screen with bullets, and players can’t take advantage of the
+time scaling feature to stack bullets in a short time frame. Technically
+both of these problems could be considered features of our game seeing as
+our core feature is the time scaling, but after playtesting we determined
+to add limitations created better gameplay for higher difficulty waves. We
+also wanted a way to differentiate between bullet direction and ownership,
+namely because a player bullet should not be able to hurt the player. This is
+will become functionally important when we add more weapon types - lasers,
+AOE attacks, melee - for the final project, but for now, the disambiguation
+adds to overall game feel. Combined with the player reload animation on
+the overlay, this Alpha has built off our core feature and truly become the
+minimally viable product we were aiming for.
+
+Overall, we feel that this Alpha was a success and our team organization
+allowed us to reach all the MVP goals we aimed for.  Not only were we able
+to use Godot and our previous experience to build and test the core feature
+of our game, but we also have a clear path forward to a playable, fun game
+and a development process that allows us to separate tasks. Following the
+same trajectory, we hope to complete a skill tree, better UI, textures,
+and new weaponry for the final project. This will allow for more interesting
+gameplay strategies and permanently scaling abilities (enabling a prestige
+or save-file system), making it more fun to develop and - more importantly -
+more fun to play and watch.

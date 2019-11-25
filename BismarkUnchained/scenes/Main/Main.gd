@@ -19,6 +19,7 @@ func set_time_delta(new_delta):
 		time_delta = min_time_delta
 	if time_delta > 1:
 		time_delta = 1
+	get_node("/root/Main/UI/TimeDelta").value = time_delta * 100
 	
 func _process(delta):
 	time_elapsed += delta * time_delta
