@@ -2,11 +2,9 @@ extends KinematicBody2D
 
 var accel = 3750
 var max_velocity = 750
-var deadzone = 0.1
+var slow_velocity = 75
 
 var curr_velocity = Vector2(0, 0)
-var controller = false
-var device = -1
 
 var time_last_shot = -1
 var time_to_shoot = 0.75
@@ -21,42 +19,26 @@ func damage():
 	get_node('/root/Main/UI/Health').value = health
 
 func move_translate(delta):
-	var velocity
-	
-	#Controller input
-	if controller:
-		velocity = Vector2(Input.get_joy_axis(device, 0), Input.get_joy_axis(device, 1))
-		if (velocity.length() < deadzone):
-			velocity = Vector2(0, 0)
-		if (velocity.length() > 1):
-			velocity = velocity.normalized()
-		#Cube curving to make small adjustments easier
-		velocity = velocity * velocity * velocity
-	
-	#If no controller input, use keyboard
-	else:
-		velocity = Vector2(0, 0)
-		if Input.is_action_pressed("player_up"):
-			velocity += Vector2(0, -1)
-		if Input.is_action_pressed("player_down"):
-			velocity += Vector2(0, 1)
-		if Input.is_action_pressed("player_left"):
-			velocity += Vector2(-1, 0)
-		if Input.is_action_pressed("player_right"):
-			velocity += Vector2(1, 0)
+	var velocity = Vector2(0, 0)
+	if Input.is_action_pressed("player_up"):
+		velocity += Vector2(0, -1)
+	if Input.is_action_pressed("player_down"):
+		velocity += Vector2(0, 1)
+	if Input.is_action_pressed("player_left"):
+		velocity += Vector2(-1, 0)
+	if Input.is_action_pressed("player_right"):
+		velocity += Vector2(1, 0)
 	
 	#Finding difference between current and target velocity, and adjusting for acceleration
-	velocity = velocity * max_velocity
+	velocity = velocity.normalized() * max_velocity
+	if Input.is_action_pressed("player_slowdown"):
+		velocity = velocity.normalized() * slow_velocity
 	var diff_velocity = velocity - curr_velocity
 	var new_velocity = curr_velocity + diff_velocity.normalized() * accel * delta
 	
 	#Checking that new velocity is not greater magnitude than target velocity, and prevents stuttering at extremely low speeds
 	if new_velocity.length() > velocity.length():
 		new_velocity = velocity
-	if new_velocity.length() < 0.5 && velocity.length() == 0:
-		new_velocity = velocity
-	if new_velocity.length() > max_velocity:
-		new_velocity = new_velocity.normalized() * max_velocity
 	
 	#Executing the movement, setting current velocity for next pass, setting global time_delta
 	velocity = new_velocity
@@ -65,14 +47,8 @@ func move_translate(delta):
 	get_node("/root/Main").set_time_delta(curr_velocity.length() / max_velocity)
 
 func move_rotate():
-	var direction
-	if controller:
-		direction = Vector2(Input.get_joy_axis(device, 3), Input.get_joy_axis(device, 4))
-		if direction.length() > 0.5:
-			last_dir = direction
-	else:
-		direction = get_global_mouse_position() - get_global_position()
-		last_dir = direction
+	var direction = get_global_mouse_position() - get_global_position()
+	last_dir = direction
 	set_global_rotation(atan2(direction.y, direction.x))
 
 func shoot():
@@ -91,22 +67,6 @@ func shoot():
 			sprite.global_position = get_global_position() + sprite.get_node("Body").velocity.normalized() * 50
 			get_node("/root/Main/UI/WeaponRecharge").value = 0
 	get_node("/root/Main/UI/WeaponRecharge").value = 100 * (get_node("/root/Main").time_elapsed - time_last_shot) / time_to_shoot
-
-func _input_method_changed(device_id, connected):
-	if connected:
-		controller = true
-		device = device_id
-	else:
-		controller = false
-
-func _ready():
-	#better way to check if controller exists? maybe should be global
-	if Input.get_joy_name(0):
-		controller = true
-		device = 0
-	else:
-		controller = false
-	Input.connect("joy_connection_changed", self, "_input_method_changed")
 
 func _process(delta):
 	move_translate(delta)
