@@ -48,8 +48,8 @@ func move_translate(delta):
 
 func move_rotate():
 	var direction = get_global_mouse_position() - get_global_position()
-	last_dir = Vector2(direction.x, direction.y)
-	rotate_dir(direction)
+	last_dir = direction
+	set_global_rotation(atan2(direction.y, direction.x))
 
 func shoot():
 	if Input.is_action_pressed("player_shoot"):
@@ -67,21 +67,6 @@ func shoot():
 			sprite.global_position = get_global_position() + sprite.get_node("Body").velocity.normalized() * 50
 			get_node("/root/Main/UI/WeaponRecharge").value = 0
 	get_node("/root/Main/UI/WeaponRecharge").value = 100 * (get_node("/root/Main").time_elapsed - time_last_shot) / time_to_shoot
-			
-
-func rotate_dir(direction):
-	if direction.x == 0:
-		if direction.y > 0:
-			set_global_rotation(PI / 2)
-		else:
-			set_global_rotation(3 * PI / 2)
-	elif direction.y == 0:
-		if direction.x > 0:
-			set_global_rotation(0)
-		else:
-			set_global_rotation(PI)
-	else:
-		set_global_rotation(atan(direction.y / direction.x))
 
 func _process(delta):
 	move_translate(delta)
