@@ -1,0 +1,63 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://scenes/UI/StartButton.gd" type="Script" id=1]
+[ext_resource path="res://scenes/UI/Exit.gd" type="Script" id=2]
+
+[node name="Control" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 1.22778
+margin_right = 1.22778
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CenterButtons" type="Control" parent="."]
+margin_left = 530.0
+margin_top = 375.0
+margin_right = 730.0
+margin_bottom = 575.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Start" type="Button" parent="CenterButtons"]
+margin_right = 200.0
+margin_bottom = 50.0
+text = "Start Game"
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Settings" type="Button" parent="CenterButtons"]
+margin_top = 76.2277
+margin_right = 200.0
+margin_bottom = 126.228
+text = "Settings"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Exit" type="Button" parent="CenterButtons"]
+margin_top = 150.0
+margin_right = 200.0
+margin_bottom = 200.0
+text = "Exit"
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="."]
+margin_left = 497.0
+margin_top = 184.0
+margin_right = 750.0
+margin_bottom = 275.0
+text = "GAME OVER
+
+Score:"
+align = 1
+[connection signal="pressed" from="CenterButtons/Start" to="CenterButtons/Start" method="_on_Button_pressed"]
+[connection signal="pressed" from="CenterButtons/Settings" to="CenterButtons/Settings" method="_on_Button_pressed"]
+[connection signal="pressed" from="CenterButtons/Exit" to="CenterButtons/Exit" method="_on_Button_pressed"]

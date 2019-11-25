@@ -19,6 +19,8 @@ func damage():
 	get_node('/root/Main/UI/Health').value = health
 
 func move_translate(delta):
+	if(health <= 0):
+		get_tree().change_scene("res://scenes/UI/EndScreen.tscn")
 	var velocity = Vector2(0, 0)
 	if Input.is_action_pressed("player_up"):
 		velocity += Vector2(0, -1)
