@@ -49,14 +49,12 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="."]
-margin_left = 497.0
-margin_top = 184.0
-margin_right = 750.0
-margin_bottom = 275.0
-text = "GAME OVER
-
-Score:"
+[node name="Score" type="Label" parent="."]
+margin_left = 496.0
+margin_top = 183.0
+margin_right = 749.0
+margin_bottom = 206.0
+text = "GAME OVER"
 align = 1
 [connection signal="pressed" from="CenterButtons/Start" to="CenterButtons/Start" method="_on_Button_pressed"]
 [connection signal="pressed" from="CenterButtons/Settings" to="CenterButtons/Settings" method="_on_Button_pressed"]
