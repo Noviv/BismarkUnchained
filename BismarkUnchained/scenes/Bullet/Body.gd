@@ -2,6 +2,9 @@ extends KinematicBody2D
 
 var velocity = Vector2(100, 0)
 
+func _ready():
+	rotation = velocity.angle()
+
 func _physics_process(delta):
 	# rotation should always be locked to velocity
 	rotation = velocity.angle()
