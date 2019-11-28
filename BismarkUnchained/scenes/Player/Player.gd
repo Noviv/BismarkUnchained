@@ -1,7 +1,7 @@
 extends KinematicBody2D
 
 # Movement variables
-const accel = 3750
+const accel = 5000
 const max_velocity = 750
 const slow_velocity = 75
 
@@ -18,6 +18,8 @@ var last_dir = Vector2(0, 0)
 
 # Player attribute variables
 var health = 100
+var experience = 0
+var level = 1
 
 func damage():
 	health -= 5
@@ -35,10 +37,14 @@ func move_translate(delta):
 	
 	# Finding difference between current and target velocity, and adjusting for acceleration
 	var velocity = Vector2(x, y).normalized() * max_velocity
-	if Input.is_action_pressed("player_slowdown"):
-		velocity = velocity.normalized() * slow_velocity
 	var diff_velocity = velocity - curr_velocity
 	var new_velocity = curr_velocity + diff_velocity.normalized() * accel * delta
+	
+	if Input.is_action_pressed("player_slowdown"):
+		velocity = velocity.normalized() * slow_velocity
+		new_velocity = velocity
+	if curr_velocity.length() == max_velocity && abs(velocity.angle() - curr_velocity.angle()) < PI / 2:
+		new_velocity = velocity
 	
 	# Checking that new velocity is not greater magnitude than target velocity, and prevents stuttering at extremely low speeds
 	if new_velocity.length() > velocity.length():
@@ -46,7 +52,7 @@ func move_translate(delta):
 	
 	# Executing the movement, setting current velocity for next pass, setting global time_delta
 	velocity = new_velocity
-	move_and_collide(velocity * delta)
+	move_and_slide(velocity)
 	curr_velocity = velocity
 	get_node("/root/Main").set_time_delta(curr_velocity.length() / max_velocity)
 
@@ -74,7 +80,33 @@ func shoot():
 			get_node("/root/Main/UI/WeaponRecharge").value = 0
 	get_node("/root/Main/UI/WeaponRecharge").value = 100 * (get_node("/root/Main").time_elapsed - time_last_shot) / time_to_shoot
 
-func _physics_process(delta):
+func update_exp(exp_val):
+	experience += exp_val
+	while experience >= exp_req(level + 1):
+		level += 1
+	get_node("/root/Main/UI/ExpReq").value = 100 * (experience - exp_req(level)) / (exp_req(level + 1) - exp_req(level))
+	get_node("/root/Main/UI/LevelLabel").text = "Player Level: " + str(level)
+
+func exp_req(next_level):
+	return 500 * pow(next_level, 2) - 500 * next_level
+
+func save():
+	var save_dict = {
+		"experience" : experience,
+	}
+	var save_file = File.new()
+	save_file.open("res://bismarkunchained.sav", File.WRITE)
+	save_file.store_line(to_json(save_dict))
+	save_file.close()
+
+func _ready():
+	var save_file = File.new()
+	if save_file.file_exists("res://bismarkunchained.sav"):
+		save_file.open("res://bismarkunchained.sav", File.READ)
+		var line = parse_json(save_file.get_line())
+		update_exp(line.experience)
+
+func _process(delta):
 	move_translate(delta)
 	move_rotate()
 	shoot()

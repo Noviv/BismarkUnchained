@@ -63,6 +63,7 @@ func spawn_arc(center, count, curve):
 	pass
 	
 func spawn_enemies():
+	get_node("/root/Main/Player/PlayerBody").save()
 	var enemy_count = wave_num
 	while enemy_count > 0:
 		var x = rng.randi_range(50, 1150)
