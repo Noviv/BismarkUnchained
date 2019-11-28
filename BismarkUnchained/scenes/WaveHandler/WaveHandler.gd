@@ -1,13 +1,15 @@
 extends Node2D
 
-var wave_num = 0
-var wave_reminder_sent = false
-var wave_length = 12
-var wave_warning = 6
 onready var WUI = get_node("../UI")
 onready var Enemy = load("res://scenes/Enemy/Enemy.tscn")
 onready var Spawner = load("res://scenes/WaveHandler/Spawner.tscn")
 onready var rng = RandomNumberGenerator.new()
+
+const wave_length = 12.0
+const wave_warning = 6
+
+var wave_num = 0
+var wave_reminder_sent = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -26,7 +28,7 @@ func start_next_wave():
 	WUI.get_node("WaveWarningLabel").set_text("Wave " + String(wave_num) + " starting now")
 	WUI.get_node("WaveCounter/Value").set_text(String(wave_num))
 	
-	$WaveTimer.start(float(wave_length))
+	$WaveTimer.start(wave_length)
 	wave_reminder_sent = false
 
 func _on_Timer_timeout():

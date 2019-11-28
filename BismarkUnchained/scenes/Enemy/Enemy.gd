@@ -1,10 +1,11 @@
 extends KinematicBody2D
 
 onready var sprite = preload("res://scenes/Weapons/Bullet/Bullet.tscn")
-var time_left = 0
-var health
 
 const aim_speed = deg2rad(1) * 3.2
+
+var time_left = 0
+var health
 
 func _ready():
 	health = 100
@@ -21,7 +22,7 @@ func _process(delta):
 	var pos = get_global_position()
 	var player_pos = get_node("../../Player/PlayerBody").get_global_position()
 	var dir = (player_pos - pos).normalized()
-	var collision = move_and_collide(dir * time_scale)
+	move_and_collide(dir * time_scale)
 	
 	if get_angle_to(player_pos) > 0:
 		rotation += aim_speed * time_scale

@@ -1,11 +1,12 @@
 extends Node2D
 
+onready var WUI = get_node("/root/Main//UI")
+
+const min_time_delta = 0.1
+
 var time_delta = 1
 var score = 0
 var time_elapsed = 0
-
-var min_time_delta = 0.1
-onready var WUI = get_node("/root/Main//UI")
 
 func get_time_delta():
 	return time_delta
