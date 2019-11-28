@@ -18,6 +18,8 @@ var last_dir = Vector2(0, 0)
 
 # Player attribute variables
 var health = 100
+var experience = 0
+var level = 1
 
 func damage():
 	health -= 5
@@ -73,6 +75,32 @@ func shoot():
 			# Reset recharge
 			get_node("/root/Main/UI/WeaponRecharge").value = 0
 	get_node("/root/Main/UI/WeaponRecharge").value = 100 * (get_node("/root/Main").time_elapsed - time_last_shot) / time_to_shoot
+
+func update_exp(exp_val):
+	experience += exp_val
+	while experience >= exp_req(level + 1):
+		level += 1
+	get_node("/root/Main/UI/ExpReq").value = 100 * (experience - exp_req(level)) / (exp_req(level + 1) - exp_req(level))
+	get_node("/root/Main/UI/LevelLabel").text = "Player Level: " + str(level)
+
+func exp_req(next_level):
+	return 500 * pow(next_level, 2) - 500 * next_level
+
+func save():
+	var save_dict = {
+		"experience" : experience,
+	}
+	var save_file = File.new()
+	save_file.open("res://bismarkunchained.sav", File.WRITE)
+	save_file.store_line(to_json(save_dict))
+	save_file.close()
+
+func _ready():
+	var save_file = File.new()
+	if save_file.file_exists("res://bismarkunchained.sav"):
+		save_file.open("res://bismarkunchained.sav", File.READ)
+		var line = parse_json(save_file.get_line())
+		update_exp(line.experience)
 
 func _process(delta):
 	move_translate(delta)
