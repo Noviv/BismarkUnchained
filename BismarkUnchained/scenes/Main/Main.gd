@@ -27,6 +27,7 @@ func set_time_delta(new_delta):
 
 func up_score(points):
 	score += points
+	get_node("/root/Main/Player/PlayerBody").update_exp(points)
 	WUI.get_node("Score").set_text(String(score))
 
 func _process(delta):
