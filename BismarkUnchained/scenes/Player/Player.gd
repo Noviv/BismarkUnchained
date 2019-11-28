@@ -46,7 +46,7 @@ func move_translate(delta):
 	
 	# Executing the movement, setting current velocity for next pass, setting global time_delta
 	velocity = new_velocity
-	move_and_collide(velocity * delta)
+	move_and_slide(velocity)
 	curr_velocity = velocity
 	get_node("/root/Main").set_time_delta(curr_velocity.length() / max_velocity)
 
