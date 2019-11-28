@@ -1,7 +1,7 @@
 extends Node2D
 
 var paused = false
-	
+
 func is_pause():
 	return paused
 
@@ -15,4 +15,3 @@ func _process(delta):
 		get_tree().paused = paused
 	elif Input.is_action_pressed("ui_cancel"):
 		get_tree().quit()
-

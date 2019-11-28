@@ -7,7 +7,7 @@ func explode(pos):
 	$Explosion.emitting = true
 	$Afterburner.emitting = false
 	
-	# allow time for all particles to expire before destroying
+	# Allow time for all particles to expire before destroying
 	time_left = $Explosion.lifetime * 1.5
 
 func _process(delta):
@@ -20,7 +20,3 @@ func _process(delta):
 		else:
 			$Explosion.speed_scale = get_node("/root/Main").get_time_delta()
 			time_left -= delta * get_node("/root/Main").get_time_delta()
-
-# vel is a Vector2
-func init(vel):
-	$Body.velocity = vel
