@@ -9,7 +9,7 @@ var curr_velocity = Vector2(0, 0)
 var time_last_shot = -1
 var time_to_shoot = 0.75
 var bullet_velocity = 1000
-onready var bullet_sprite = preload("res://scenes/Bullet/Bullet.tscn")
+onready var bullet_sprite = preload("res://scenes/Weapons/Bullet/Bullet.tscn")
 var last_dir = Vector2(0, 0)
 
 var health = 100
