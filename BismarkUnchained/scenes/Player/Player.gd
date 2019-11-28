@@ -106,7 +106,7 @@ func _ready():
 		var line = parse_json(save_file.get_line())
 		update_exp(line.experience)
 
-func _process(delta):
+func _physics_process(delta):
 	move_translate(delta)
 	move_rotate()
 	shoot()
