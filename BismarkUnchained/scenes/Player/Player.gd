@@ -74,7 +74,7 @@ func shoot():
 			get_node("/root/Main/UI/WeaponRecharge").value = 0
 	get_node("/root/Main/UI/WeaponRecharge").value = 100 * (get_node("/root/Main").time_elapsed - time_last_shot) / time_to_shoot
 
-func _process(delta):
+func _physics_process(delta):
 	move_translate(delta)
 	move_rotate()
 	shoot()
