@@ -1,17 +1,22 @@
 extends KinematicBody2D
 
-var accel = 3750
-var max_velocity = 750
-var slow_velocity = 75
+# Movement variables
+const accel = 3750
+const max_velocity = 750
+const slow_velocity = 75
 
 var curr_velocity = Vector2(0, 0)
 
-var time_last_shot = -1
-var time_to_shoot = 0.75
-var bullet_velocity = 1000
+# Bullet variables
 onready var bullet_sprite = preload("res://scenes/Weapons/Bullet/Bullet.tscn")
+
+const time_to_shoot = 0.75
+const bullet_velocity = 1000
+
+var time_last_shot = -1
 var last_dir = Vector2(0, 0)
 
+# Player attribute variables
 var health = 100
 
 func damage():
@@ -20,8 +25,10 @@ func damage():
 
 func move_translate(delta):
 	if health <= 0:
-		var score = get_node('/root/Main').score
-		get_tree().change_scene("res://scenes/UI/EndScreen.tscn")
+		# TODO: pull score and display it on end screen
+		if get_tree().change_scene("res://scenes/UI/EndScreen.tscn") != OK:
+			print('failed to switch to end screen')
+			get_tree().quit()
 
 	var x = int(Input.is_action_pressed("player_right")) - int(Input.is_action_pressed("player_left"))
 	var y = int(Input.is_action_pressed("player_down")) - int(Input.is_action_pressed("player_up"))
@@ -39,7 +46,7 @@ func move_translate(delta):
 	
 	# Executing the movement, setting current velocity for next pass, setting global time_delta
 	velocity = new_velocity
-	var collision = move_and_collide(velocity * delta)
+	move_and_collide(velocity * delta)
 	curr_velocity = velocity
 	get_node("/root/Main").set_time_delta(curr_velocity.length() / max_velocity)
 
@@ -57,15 +64,11 @@ func shoot():
 			var sprite = bullet_sprite.instance()
 			sprite.set_scale(Vector2(1.4, 1.4))
 			sprite.set_modulate(Color(0, 0, 0, 1))
-			
-			# Set velocity
-			var x_vel = cos(atan2(last_dir.y, last_dir.x))
-			var y_vel = sin(atan2(last_dir.y, last_dir.x))
-			sprite.get_node("Body").velocity = Vector2(x_vel, y_vel) * bullet_velocity
+			sprite.set_bullet_velocity(last_dir.normalized() * bullet_velocity)
 			
 			# Add scene
 			get_parent().add_child(sprite)
-			sprite.global_position = get_global_position() + sprite.get_node("Body").velocity.normalized() * 50
+			sprite.global_position = get_global_position() + last_dir.normalized() * 50
 			
 			# Reset recharge
 			get_node("/root/Main/UI/WeaponRecharge").value = 0

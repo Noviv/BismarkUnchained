@@ -20,3 +20,6 @@ func _process(delta):
 		else:
 			$Explosion.speed_scale = get_node("/root/Main").get_time_delta()
 			time_left -= delta * get_node("/root/Main").get_time_delta()
+
+func set_bullet_velocity(velocity):
+	$Body.velocity = velocity
