@@ -3,7 +3,7 @@ extends KinematicBody2D
 # Movement variables
 const accel = 5000
 const max_velocity = 750
-const slow_velocity = 75
+var curr_max_velocity = 750
 
 var curr_velocity = Vector2(0, 0)
 
@@ -36,14 +36,11 @@ func move_translate(delta):
 	var y = int(Input.is_action_pressed("player_down")) - int(Input.is_action_pressed("player_up"))
 	
 	# Finding difference between current and target velocity, and adjusting for acceleration
-	var velocity = Vector2(x, y).normalized() * max_velocity
+	var velocity = Vector2(x, y).normalized() * curr_max_velocity
 	var diff_velocity = velocity - curr_velocity
 	var new_velocity = curr_velocity + diff_velocity.normalized() * accel * delta
 	
-	if Input.is_action_pressed("player_slowdown"):
-		velocity = velocity.normalized() * slow_velocity
-		new_velocity = velocity
-	if curr_velocity.length() == max_velocity && abs(velocity.angle() - curr_velocity.angle()) < PI / 2:
+	if curr_velocity.length() == curr_max_velocity && abs(velocity.angle() - curr_velocity.angle()) < PI / 2:
 		new_velocity = velocity
 	
 	# Checking that new velocity is not greater magnitude than target velocity, and prevents stuttering at extremely low speeds
@@ -105,6 +102,22 @@ func _ready():
 		save_file.open("res://bismarkunchained.sav", File.READ)
 		var line = parse_json(save_file.get_line())
 		update_exp(line.experience)
+
+func _input(event):
+	if event.is_action_pressed("player_mintime"):
+		curr_max_velocity = max_velocity * get_node("/root/Main").min_time_delta
+		get_node("/root/Main/UI/TimeDelta").value = 100 * curr_max_velocity / max_velocity
+	elif event.is_action_pressed("player_maxtime"):
+		curr_max_velocity = max_velocity
+		get_node("/root/Main/UI/TimeDelta").value = 100 * curr_max_velocity / max_velocity
+	elif event.is_action_pressed("player_dectime"):
+		if curr_max_velocity > max_velocity * get_node("/root/Main").min_time_delta:
+			curr_max_velocity -= (max_velocity - max_velocity * get_node("/root/Main").min_time_delta) / 20
+			get_node("/root/Main/UI/TimeDelta").value = 100 * curr_max_velocity / max_velocity
+	elif event.is_action_pressed("player_inctime"):
+		if curr_max_velocity < max_velocity:
+			curr_max_velocity += (max_velocity - max_velocity * get_node("/root/Main").min_time_delta) / 20
+			get_node("/root/Main/UI/TimeDelta").value =100 * curr_max_velocity / max_velocity
 
 func _physics_process(delta):
 	move_translate(delta)
