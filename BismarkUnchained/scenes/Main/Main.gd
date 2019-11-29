@@ -22,6 +22,8 @@ func set_time_delta(new_delta):
 		time_delta = min_time_delta
 	else:
 		time_delta = new_delta
+		if time_delta > 1:
+			time_delta = 1
 
 func up_score(points):
 	score += points
