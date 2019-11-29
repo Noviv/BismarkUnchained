@@ -1,6 +1,7 @@
 extends Node2D
 
 var time_left = 0
+var velocity = Vector2(0, 0)
 
 func explode(pos):
 	$Explosion.global_position = pos
@@ -12,7 +13,7 @@ func explode(pos):
 
 func _process(delta):
 	if has_node('Body'):
-		$Afterburner.global_position = $Body.global_position - Vector2(7, 0)
+		$Afterburner.global_position = $Body.global_position - velocity.normalized() * 7
 		$Afterburner.speed_scale = get_node("/root/Main").get_time_delta()
 	else:
 		if time_left < 0:
@@ -21,5 +22,6 @@ func _process(delta):
 			$Explosion.speed_scale = get_node("/root/Main").get_time_delta()
 			time_left -= delta * get_node("/root/Main").get_time_delta()
 
-func set_bullet_velocity(velocity):
-	$Body.velocity = velocity
+func set_bullet_velocity(vel):
+	velocity = vel
+	$Body.velocity = vel
