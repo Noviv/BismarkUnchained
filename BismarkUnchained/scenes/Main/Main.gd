@@ -18,12 +18,10 @@ func set_time_delta(new_delta):
 		print(new_delta)
 		get_tree().quit()
 	
-	time_delta = new_delta * (1 - min_time_delta) + min_time_delta
-	if time_delta < min_time_delta:
+	if new_delta < min_time_delta:
 		time_delta = min_time_delta
-	elif time_delta > 1:
-		time_delta = 1
-	get_node("/root/Main/UI/TimeDelta").value = time_delta * 100
+	else:
+		time_delta = new_delta
 
 func up_score(points):
 	score += points
