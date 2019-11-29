@@ -2,6 +2,7 @@ extends KinematicBody2D
 
 # Movement variables
 const accel = 5000
+var curr_accel = 5000
 const max_velocity = 750
 var curr_max_velocity = 750
 
@@ -38,7 +39,7 @@ func move_translate(delta):
 	# Finding difference between current and target velocity, and adjusting for acceleration
 	var velocity = Vector2(x, y).normalized() * curr_max_velocity
 	var diff_velocity = velocity - curr_velocity
-	var new_velocity = curr_velocity + diff_velocity.normalized() * accel * delta
+	var new_velocity = curr_velocity + diff_velocity.normalized() * curr_accel * delta
 	
 	if curr_velocity.length() == curr_max_velocity && abs(velocity.angle() - curr_velocity.angle()) < PI / 2:
 		new_velocity = velocity
@@ -51,7 +52,6 @@ func move_translate(delta):
 	velocity = new_velocity
 	move_and_slide(velocity)
 	curr_velocity = velocity
-	get_node("/root/Main").set_time_delta(curr_velocity.length() / max_velocity)
 
 func move_rotate():
 	var direction = get_global_mouse_position() - get_global_position()
@@ -106,20 +106,25 @@ func _ready():
 func _input(event):
 	if event.is_action_pressed("player_mintime"):
 		curr_max_velocity = max_velocity * get_node("/root/Main").min_time_delta
+		curr_accel = accel * get_node("/root/Main").min_time_delta
 		get_node("/root/Main/UI/TimeDelta").value = 100 * curr_max_velocity / max_velocity
 	elif event.is_action_pressed("player_maxtime"):
 		curr_max_velocity = max_velocity
+		curr_accel = accel
 		get_node("/root/Main/UI/TimeDelta").value = 100 * curr_max_velocity / max_velocity
 	elif event.is_action_pressed("player_dectime"):
 		if curr_max_velocity > max_velocity * get_node("/root/Main").min_time_delta:
 			curr_max_velocity -= (max_velocity - max_velocity * get_node("/root/Main").min_time_delta) / 20
+			curr_accel -= (accel - accel * get_node("/root/Main").min_time_delta) / 20
 			get_node("/root/Main/UI/TimeDelta").value = 100 * curr_max_velocity / max_velocity
 	elif event.is_action_pressed("player_inctime"):
 		if curr_max_velocity < max_velocity:
 			curr_max_velocity += (max_velocity - max_velocity * get_node("/root/Main").min_time_delta) / 20
+			curr_accel += (accel - accel * get_node("/root/Main").min_time_delta) / 20
 			get_node("/root/Main/UI/TimeDelta").value =100 * curr_max_velocity / max_velocity
 
 func _physics_process(delta):
 	move_translate(delta)
 	move_rotate()
 	shoot()
+	get_node("/root/Main").set_time_delta(curr_max_velocity / max_velocity)
