@@ -13,7 +13,6 @@ func explode(pos):
 
 func _process(delta):
 	if has_node('Body'):
-		$Afterburner.global_position = $Body.global_position - velocity.normalized() * 7
 		$Afterburner.speed_scale = get_node("/root/Main").get_time_delta()
 	else:
 		if time_left < 0:
@@ -21,6 +20,9 @@ func _process(delta):
 		else:
 			$Explosion.speed_scale = get_node("/root/Main").get_time_delta()
 			time_left -= delta * get_node("/root/Main").get_time_delta()
+
+func set_bullet_object_to_home(object):
+	$Body.homing_object = object
 
 func set_bullet_velocity(vel):
 	velocity = vel
