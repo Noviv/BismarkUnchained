@@ -11,6 +11,7 @@ var curr_velocity = Vector2(0, 0)
 # Bullet variables
 onready var bullet_sprite = preload("res://scenes/Weapons/Bullet/Bullet.tscn")
 const bullet_velocity = 1000
+var bullet_damage = 50
 
 var time_last_shot = -1
 var last_dir = Vector2(0, 0)
@@ -30,8 +31,8 @@ var level = 1
 # Regen variables
 var last_regen = 0
 
-func damage():
-	health -= 5
+func damage(dmg):
+	health -= dmg
 	get_node('/root/Main/UI/Health').value = health * 100 / maxhealth
 
 func move_translate(delta):
@@ -76,6 +77,7 @@ func shoot():
 			sprite.set_scale(Vector2(1.4, 1.4))
 			sprite.set_modulate(Color(0, 0, 0, 1))
 			sprite.set_bullet_velocity(last_dir.normalized() * bullet_velocity)
+			sprite.set_bullet_damage(bullet_damage)
 			
 			# Add scene
 			get_parent().add_child(sprite)
@@ -90,6 +92,12 @@ func regen():
 	if health > maxhealth:
 		health = maxhealth
 	last_regen = get_node("/root/Main").time_elapsed
+	get_node('/root/Main/UI/Health').value = health * 100 / maxhealth
+
+func lifesteal(dmg):
+	health += dmg * lifesteal / 100
+	if health > maxhealth:
+		health = maxhealth
 	get_node('/root/Main/UI/Health').value = health * 100 / maxhealth
 
 func update_exp(exp_val):

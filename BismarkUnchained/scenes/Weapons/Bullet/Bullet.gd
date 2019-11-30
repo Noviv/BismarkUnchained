@@ -3,6 +3,8 @@ extends Node2D
 var time_left = 0
 var velocity = Vector2(0, 0)
 
+var damage = 0
+
 func explode(pos):
 	$Explosion.global_position = pos
 	$Explosion.emitting = true
@@ -30,3 +32,7 @@ func set_bullet_object_to_home(object):
 func set_bullet_velocity(vel):
 	velocity = vel
 	$Body.velocity = vel
+	
+func set_bullet_damage(dmg):
+	damage = dmg
+	$Body.bullet_damage = dmg
