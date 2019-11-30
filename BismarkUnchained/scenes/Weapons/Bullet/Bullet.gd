@@ -21,6 +21,9 @@ func _process(delta):
 			$Explosion.speed_scale = get_node("/root/Main").get_time_delta()
 			time_left -= delta * get_node("/root/Main").get_time_delta()
 
+func set_can_damage_enemy(can_damage):
+	$Body.can_damage_enemy = can_damage
+
 func set_bullet_object_to_home(object):
 	$Body.homing_object = object
 

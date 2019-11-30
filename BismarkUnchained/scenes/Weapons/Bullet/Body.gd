@@ -4,6 +4,7 @@ const max_rotation_radians_per_sec = deg2rad(180)
 
 var velocity = Vector2(100, 0)
 var homing_object = null
+var can_damage_enemy = true
 
 func _ready():
 	rotation = velocity.angle()
@@ -22,7 +23,14 @@ func _physics_process(delta):
 	# Move and check for a collision
 	var collision = move_and_collide(velocity * get_node("/root/Main").time_delta * delta)
 	if collision:
-		if collision.collider.has_method('damage'):
+		# If bullet cannot damage enemies and collider is an enemy, don't damage
+		var damage = true
+		if !can_damage_enemy:
+			var is_enemy = collision.collider.get('is_enemy')
+			if is_enemy != null && is_enemy:
+				damage = false
+		
+		if damage && collision.collider.has_method('damage'):
 			collision.collider.damage()
 		get_parent().explode(collision.position)
 		queue_free()

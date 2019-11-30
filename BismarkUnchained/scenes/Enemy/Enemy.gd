@@ -2,6 +2,7 @@ extends KinematicBody2D
 
 onready var sprite = preload("res://scenes/Weapons/Bullet/Bullet.tscn")
 
+const is_enemy = true
 const aim_speed = deg2rad(1) * 3.2
 
 var time_left = 0
@@ -31,6 +32,7 @@ func _process(delta):
 	
 	if get_angle_to(player_pos) < 0.5 && get_angle_to(player_pos) > -0.5 && time_left < 0 && player_pos.distance_to(pos) > 150:
 		var s = sprite.instance()
+		s.set_can_damage_enemy(false)
 		s.set_bullet_velocity(Vector2(player_pos.x - pos.x, player_pos.y - pos.y).normalized() * 100)
 		get_parent().add_child(s)
 		s.global_position = Vector2(pos.x - .4 * (pos.x - player_pos.x) / 2, pos.y - .4 * (pos.y - player_pos.y) / 2)
