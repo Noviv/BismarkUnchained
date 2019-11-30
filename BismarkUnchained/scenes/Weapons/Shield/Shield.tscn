@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://images/shield.png" type="Texture" id=1]
+
+[node name="Shield" type="Node2D"]
+
+[node name="KinematicBody2D" type="KinematicBody2D" parent="."]
+
+[node name="Sprite" type="Sprite" parent="KinematicBody2D"]
+rotation = -1.5708
+scale = Vector2( 0.1, 0.1 )
+texture = ExtResource( 1 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="KinematicBody2D"]
+rotation = -1.5708
+scale = Vector2( 0.1, 0.1 )
+polygon = PoolVector2Array( -180.3, -52, -178.3, -52, -140.3, -24, -138.4, -24, -95.5, 2, -93.6, 2, -32.7, 30.5, -30.8, 14, 26.7, 14, 32, 18, 32, 29.8, 57, 19.6, 57, 18.8, 129, -18.2, 129, -19.1, 177, -51.1, 177, -51.9, 225.3, -94, 228.8, -94, 234.4, -88.5, 233.3, -86, 232.1, -86, 203.1, -41, 201.9, -41, 175.9, -12, 173.9, -12, 148.8, 11, 146.7, 11, 90.6, 49, 88.6, 49, 27.5, 82, 24.6, 82, 2.5, 94, -5, 94, -5, 92.3, -94, 48.2, -94, 47.1, -161, 3.10001, -161, 1.89999, -190, -24.1, -190, -26.1, -214, -52.2, -214, -54.5, -235, -84.4, -235, -88.5, -233, -92.5, -233, -94.3, -230.7, -95.4 )
