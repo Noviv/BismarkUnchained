@@ -10,21 +10,29 @@ var curr_velocity = Vector2(0, 0)
 
 # Bullet variables
 onready var bullet_sprite = preload("res://scenes/Weapons/Bullet/Bullet.tscn")
-
-const time_to_shoot = 0.75
 const bullet_velocity = 1000
 
 var time_last_shot = -1
 var last_dir = Vector2(0, 0)
+
+# Upgrades
+var upgrades = 0
+var maxhealth = 100
+var regen = 0
+var lifesteal = 0
+var time_to_shoot = 0.75
 
 # Player attribute variables
 var health = 100
 var experience = 0
 var level = 1
 
+# Regen variables
+var last_regen = 0
+
 func damage():
 	health -= 5
-	get_node('/root/Main/UI/Health').value = health
+	get_node('/root/Main/UI/Health').value = health * 100 / maxhealth
 
 func move_translate(delta):
 	if health <= 0:
@@ -77,10 +85,18 @@ func shoot():
 			get_node("/root/Main/UI/WeaponRecharge").value = 0
 	get_node("/root/Main/UI/WeaponRecharge").value = 100 * (get_node("/root/Main").time_elapsed - time_last_shot) / time_to_shoot
 
+func regen():
+	health += regen * (get_node("/root/Main").time_elapsed - last_regen)
+	if health > maxhealth:
+		health = maxhealth
+	last_regen = get_node("/root/Main").time_elapsed
+	get_node('/root/Main/UI/Health').value = health * 100 / maxhealth
+
 func update_exp(exp_val):
 	experience += exp_val
 	while experience >= exp_req(level + 1):
 		level += 1
+		upgrades += 1
 	get_node("/root/Main/UI/ExpReq").value = 100 * (experience - exp_req(level)) / (exp_req(level + 1) - exp_req(level))
 	get_node("/root/Main/UI/LevelLabel").text = "Player Level: " + str(level)
 
@@ -90,6 +106,11 @@ func exp_req(next_level):
 func save():
 	var save_dict = {
 		"experience" : experience,
+		"upgrades": upgrades,
+		"maxhealth": maxhealth,
+		"regen": regen,
+		"lifesteal": lifesteal,
+		"rof": time_to_shoot
 	}
 	var save_file = File.new()
 	save_file.open("res://bismarkunchained.sav", File.WRITE)
@@ -102,6 +123,13 @@ func _ready():
 		save_file.open("res://bismarkunchained.sav", File.READ)
 		var line = parse_json(save_file.get_line())
 		update_exp(line.experience)
+		upgrades = line.upgrades
+		maxhealth = line.maxhealth
+		health = maxhealth
+		regen = line.regen
+		lifesteal = line.lifesteal
+		time_to_shoot = line.rof
+		save_file.close()
 
 func _input(event):
 	if event.is_action_pressed("player_mintime"):
@@ -127,4 +155,5 @@ func _physics_process(delta):
 	move_translate(delta)
 	move_rotate()
 	shoot()
+	regen()
 	get_node("/root/Main").set_time_delta(curr_max_velocity / max_velocity)
