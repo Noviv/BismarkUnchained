@@ -17,7 +17,7 @@ func calc_laser_collisions():
 	var query = Physics2DShapeQueryParameters.new()
 	query.set_shape(shape)
 	query.set_transform($MeshInstance2D.get_global_transform())
-	query.set_exclude([self])
+	query.set_exclude([$Mesh, $ParticlesLeft, $ParticlesCenter, $ParticlesRight])
 	return get_world_2d().get_direct_space_state().intersect_shape(query, 32)
 
 func _physics_process(delta):
