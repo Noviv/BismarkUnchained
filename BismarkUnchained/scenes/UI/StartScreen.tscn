@@ -60,10 +60,10 @@ margin_bottom = 363.0
 texture = ExtResource( 4 )
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
-margin_left = 108.585
-margin_top = 204.039
-margin_right = 392.585
-margin_bottom = 505.039
+margin_left = 100.0
+margin_top = 200.0
+margin_right = 400.0
+margin_bottom = 500.0
 bbcode_enabled = true
 bbcode_text = "[center]Welcome to [color=red]Bismark Unchained[/color]![/center]
 
