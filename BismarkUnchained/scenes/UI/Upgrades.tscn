@@ -1,0 +1,113 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://scenes/UI/Upgrades.gd" type="Script" id=1]
+
+[node name="UpgradeScene" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 1.22778
+margin_right = 1.22778
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Buttons" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="RoF" type="Button" parent="Buttons"]
+margin_left = 90.0
+margin_top = 100.0
+margin_right = 340.0
+margin_bottom = 300.0
+text = "Upgrade Rate of Fire"
+
+[node name="MaxHealth" type="Button" parent="Buttons"]
+margin_left = 373.0
+margin_top = 100.0
+margin_right = 623.0
+margin_bottom = 300.0
+text = "Upgrade Max Health"
+
+[node name="Regen" type="Button" parent="Buttons"]
+margin_left = 656.0
+margin_top = 100.0
+margin_right = 906.0
+margin_bottom = 300.0
+text = "Upgrade Health Regen"
+
+[node name="Lifesteal" type="Button" parent="Buttons"]
+margin_left = 939.0
+margin_top = 100.0
+margin_right = 1189.0
+margin_bottom = 300.0
+text = "Upgrade Lifesteal"
+
+[node name="Return" type="Button" parent="Buttons"]
+margin_left = 1100.0
+margin_top = 10.0
+margin_right = 1220.0
+margin_bottom = 40.0
+text = "Save & Return"
+
+[node name="Labels" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="Upgrades" type="Label" parent="Labels"]
+margin_left = 536.5
+margin_top = 39.5
+margin_right = 674.5
+margin_bottom = 53.5
+rect_scale = Vector2( 1.5, 1.5 )
+text = "Upgrades Available: 0"
+
+[node name="Passives" type="Label" parent="Labels"]
+margin_left = 50.0
+margin_top = 32.5
+margin_right = 105.0
+margin_bottom = 46.5
+rect_scale = Vector2( 2.5, 2.5 )
+text = "Passives"
+
+[node name="Actives" type="Label" parent="Labels"]
+margin_left = 50.0
+margin_top = 332.5
+margin_right = 105.0
+margin_bottom = 346.5
+rect_scale = Vector2( 2.5, 2.5 )
+text = "Actives"
+
+[node name="RoFInfo" type="Label" parent="Labels"]
+margin_left = 100.0
+margin_top = 281.0
+margin_right = 182.0
+margin_bottom = 295.0
+text = "Current RoF: "
+
+[node name="MaxHealthInfo" type="Label" parent="Labels"]
+margin_left = 383.0
+margin_top = 281.0
+margin_right = 514.0
+margin_bottom = 295.0
+text = "Current Max Health: "
+
+[node name="HealthRegenInfo" type="Label" parent="Labels"]
+margin_left = 666.0
+margin_top = 281.0
+margin_right = 841.0
+margin_bottom = 295.0
+text = "Current Health Regen/sec:  "
+
+[node name="LifestealInfo" type="Label" parent="Labels"]
+margin_left = 949.0
+margin_top = 281.0
+margin_right = 1124.0
+margin_bottom = 295.0
+text = "Current Lifesteal:"
+[connection signal="pressed" from="Buttons/RoF" to="." method="_on_RoF_pressed"]
+[connection signal="pressed" from="Buttons/MaxHealth" to="." method="_on_MaxHealth_pressed"]
+[connection signal="pressed" from="Buttons/Regen" to="." method="_on_Regen_pressed"]
+[connection signal="pressed" from="Buttons/Lifesteal" to="." method="_on_Lifesteal_pressed"]
+[connection signal="pressed" from="Buttons/Return" to="." method="_on_Return_pressed"]
