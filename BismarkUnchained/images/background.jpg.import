@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/hal.png-1c762e11422a4656991cbf021665c04f.stex"
+path="res://.import/background.jpg-fecfc4c19b565abc1b6227560c1dede4.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/hal.png"
-dest_files=[ "res://.import/hal.png-1c762e11422a4656991cbf021665c04f.stex" ]
+source_file="res://images/background.jpg"
+dest_files=[ "res://.import/background.jpg-fecfc4c19b565abc1b6227560c1dede4.stex" ]
 
 [params]
 
