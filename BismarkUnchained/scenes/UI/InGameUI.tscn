@@ -5,13 +5,13 @@ bg_color = Color( 1, 0, 0, 1 )
 
 [sub_resource type="StyleBoxLine" id=2]
 
-[sub_resource type="StyleBoxFlat" id=4]
+[sub_resource type="StyleBoxFlat" id=3]
 bg_color = Color( 0, 0.392157, 0, 1 )
 
-[sub_resource type="StyleBoxFlat" id=5]
+[sub_resource type="StyleBoxFlat" id=4]
 bg_color = Color( 0, 0, 0, 1 )
 
-[sub_resource type="StyleBoxFlat" id=3]
+[sub_resource type="StyleBoxFlat" id=5]
 bg_color = Color( 0, 0.0627451, 1, 1 )
 
 [node name="WaveUI" type="Control"]
@@ -101,8 +101,8 @@ margin_left = 300.0
 margin_top = 10.0
 margin_right = 520.0
 margin_bottom = 24.0
-custom_styles/fg = SubResource( 4 )
-custom_styles/bg = SubResource( 5 )
+custom_styles/fg = SubResource( 3 )
+custom_styles/bg = SubResource( 4 )
 
 [node name="LevelLabel" type="Label" parent="."]
 margin_left = 170.0
@@ -121,6 +121,6 @@ margin_top = 510.0
 margin_right = 1565.0
 margin_bottom = 524.0
 rect_rotation = -90.0
-custom_styles/fg = SubResource( 3 )
+custom_styles/fg = SubResource( 5 )
 value = 100.0
 percent_visible = false
