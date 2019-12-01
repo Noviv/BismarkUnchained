@@ -58,6 +58,41 @@ margin_top = 20.0
 margin_right = 803.0
 margin_bottom = 363.0
 texture = ExtResource( 4 )
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+margin_left = 100.0
+margin_top = 200.0
+margin_right = 400.0
+margin_bottom = 500.0
+bbcode_enabled = true
+bbcode_text = "[center]Welcome to [color=red]Bismark Unchained[/color]![/center]
+
+Here are some basic instructions:
+[indent]- Left click to shoot[/indent]
+[indent]- WASD to move[/indent]
+[indent]- Scroll wheel to speed/slow time[/indent]
+[indent]- Q/E to jump to min/max time speed[/indent]
+[indent]- Spend level points in the upgrade menu[/indent]
+
+This game revolves around speeding up and slowing down time - use that to your advantage! Either play at max speed and try to burn through the bullet hell, or slow down to plan your path forward.
+
+Be sure to keep upgrading, as enemies get harder and more complicated.
+
+Good luck!"
+text = "Welcome to Bismark Unchained!
+
+Here are some basic instructions:
+	- Left click to shoot
+	- WASD to move
+	- Scroll wheel to speed/slow time
+	- Q/E to jump to min/max time speed
+	- Spend level points in the upgrade menu
+
+This game revolves around speeding up and slowing down time - use that to your advantage! Either play at max speed and try to burn through the bullet hell, or slow down to plan your path forward.
+
+Be sure to keep upgrading, as enemies get harder and more complicated.
+
+Good luck!"
 [connection signal="pressed" from="CenterButtons/Start" to="CenterButtons/Start" method="_on_Button_pressed"]
 [connection signal="pressed" from="CenterButtons/Upgrades" to="CenterButtons/Upgrades" method="_on_Button_pressed"]
 [connection signal="pressed" from="CenterButtons/Exit" to="CenterButtons/Exit" method="_on_Button_pressed"]
