@@ -75,7 +75,7 @@ func shoot():
 			# Instance bullet scene
 			var sprite = bullet_sprite.instance()
 			sprite.set_scale(Vector2(1.4, 1.4))
-			sprite.set_modulate(Color(0, 0, 0, 1))
+			sprite.set_modulate(Color(0, 0, 255, 1))
 			sprite.set_bullet_velocity(last_dir.normalized() * bullet_velocity)
 			sprite.set_bullet_damage(bullet_damage)
 			
