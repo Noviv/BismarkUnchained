@@ -31,7 +31,7 @@ func damage(dmg):
 		child1.global_position = pos
 		child2.global_position = child1.global_position + Vector2(0, 40)
 	else:
-		get_node("/root/Main").up_score(100)
+		get_node("/root/Main").up_score(200)
 	queue_free()
 
 func _process(delta):

@@ -20,7 +20,7 @@ func damage(dmg):
 func _process(delta):
 	var time_scale = get_node("/root/Main").get_time_delta()
 	if health <= 0:
-		get_node("/root/Main").up_score(100)
+		get_node("/root/Main").up_score(50)
 		queue_free()
 	
 	var pos = get_global_position()
