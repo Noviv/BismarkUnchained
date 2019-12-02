@@ -5,6 +5,7 @@ onready var child = load("res://scenes/Enemy/Enemy3.tscn")
 onready var shoot_ray = get_node("shoot_ray")
 
 const aim_speed = deg2rad(1) * 3.2
+const is_enemy = true
 
 var time_left = 0
 var pos
@@ -34,7 +35,7 @@ func damage(dmg):
 	queue_free()
 
 func _process(delta):
-	var time_scale = get_node("/root/Main").get_time_delta() * (3 - scale.x)
+	var time_scale = get_node("/root/Main").get_time_delta() * (2 - scale.x)
 	pos = get_global_position()
 	var player_pos = get_node("../../Player/PlayerBody").get_global_position()
 	var dir = (player_pos - pos).normalized()
@@ -48,6 +49,7 @@ func _process(delta):
 		var s = sprite.instance()
 		s.get_node("Body").velocity = Vector2(player_pos.x - pos.x, player_pos.y - pos.y).normalized() * 100
 		s.set_bullet_damage(bullet_damage)
+		s.set_can_damage_enemy(false)
 		get_parent().add_child(s)
 		s.global_position = Vector2(pos.x - .4 * (pos.x - player_pos.x) / 2, pos.y - .4 * (pos.y - player_pos.y) / 2)
 		time_left = .5
