@@ -5,27 +5,27 @@ onready var Enemy = load("res://scenes/Enemy/Enemy.tscn")
 onready var Spawner = load("res://scenes/WaveHandler/Spawner.tscn")
 onready var rng = RandomNumberGenerator.new()
 
-const wave_length = 12.0
+const wave_length = 12
 const wave_warning = 6
 
-var wave_num = 0
+var wave_num = 1
 var wave_reminder_sent = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	start_next_wave()
+	$WaveTimer.start(wave_warning)
 	var time = OS.get_time()
 	rng.set_seed((time.hour + time.minute + time.second))
 	
 func _process(delta):
 	if $WaveTimer.get_time_left() < wave_warning && !wave_reminder_sent:
-		WUI.get_node("WaveWarningLabel").set_text("Wave " + String(wave_num + 1) + " starting in " + String(wave_warning) +" seconds")
+		WUI.get_node("WaveWarningLabel").set_text("Wave " + String(wave_num) + " starting in " + String(wave_warning) +" seconds")
 		spawn_enemies()
 		wave_reminder_sent = true
 
 func start_next_wave():
 	wave_num += 1
-	WUI.get_node("WaveWarningLabel").set_text("Wave " + String(wave_num) + " starting now")
+	WUI.get_node("WaveWarningLabel").set_text("Wave " + String(wave_num - 1) + " starting now")
 	WUI.get_node("WaveCounter/Value").set_text(String(wave_num))
 	
 	$WaveTimer.start(wave_length)
@@ -38,29 +38,6 @@ func spawn_point(center):
 	var tempSpawn = Enemy.instance()
 	tempSpawn.position = center
 	get_parent().call_deferred("add_child", tempSpawn)
-
-func spawn_circle(center, count):
-	var radius = count * 8
-	if (center.x + radius) > 1150:
-		center.x = center.x - radius
-	elif (center.x - radius) < 100:
-		center.x = center.x + radius
-	
-	if (center.y + radius) > 590:
-		center.y = center.y - radius
-	elif (center.y - radius) < 110:
-		center.y = center.y + radius
-	
-	var form_radius = Vector2(0, count * 8)
-	var form_angle = 6.28 / count
-	place_spawner(Vector2(center.x + form_radius.x, center.y + form_radius.y))
-	for i in range(count - 1):
-		form_radius = form_radius.rotated(form_angle)
-		place_spawner(Vector2(center.x + form_radius.x, center.y + form_radius.y))
-	
-func spawn_arc(center, count, curve):
-	# TODO
-	pass
 	
 func spawn_enemies():
 	get_node("/root/Main/Player/PlayerBody").save()
@@ -72,10 +49,57 @@ func spawn_enemies():
 		var rand_count = 32
 		while(rand_count > 25):
 			rand_count = rng.randi_range(1, enemy_count)
-		spawn_circle(center, rand_count)
-		enemy_count -= rand_count
+		var rand_formation = rng.randi_range(1,3)
+		match rand_formation:
+			1,2:
+				spawn_circle(center, rand_count)
+				enemy_count -= rand_count
+			3:
+				if enemy_count >= 4:
+					spawn_square(center)
+					enemy_count -= 4
+		
+
+func spawn_circle(center, count):
+	var radius = count * 8
+	center = center_in_bound(center, radius)
+	
+	var form_radius = Vector2(0, count * 8)
+	var form_angle = 6.28 / count
+	place_spawner(Vector2(center.x + form_radius.x, center.y + form_radius.y))
+	for i in range(count - 1):
+		form_radius = form_radius.rotated(form_angle)
+		place_spawner(Vector2(center.x + form_radius.x, center.y + form_radius.y))
+	
+func spawn_square(center):
+	var side = rng.randi_range(50, 100)
+	center = center_in_bound(center, side)
+	for i in range(2):
+		for j in range(2):
+			place_spawner(Vector2(center.x + (i * side), center.y + (j * side)))
+			pass
+	
+	pass
+	
+func spawn_line(center, count):
+	var x = rng.randi_range(-1, 1)
+	var y = rng.randi_range(-1, 1)
+	pass
 
 func place_spawner(center):
 	var tempSpawn = Spawner.instance()
 	tempSpawn.position = center
 	get_parent().call_deferred("add_child", tempSpawn)
+	
+func center_in_bound(center, unit):
+	if (center.x + unit) > 1150:
+		center.x = center.x - unit
+	elif (center.x - unit) < 100:
+		center.x = center.x + unit
+	
+	if (center.y + unit) > 590:
+		center.y = center.y - unit
+	elif (center.y - unit) < 110:
+		center.y = center.y + unit
+		
+	return center
