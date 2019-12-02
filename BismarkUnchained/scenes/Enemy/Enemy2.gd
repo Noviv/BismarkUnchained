@@ -4,6 +4,7 @@ onready var sprite = preload("res://scenes/Weapons/Bullet/Bullet.tscn")
 onready var shoot_ray = get_node("shoot_ray")
 
 const aim_speed = deg2rad(1) * 3.2
+const is_enemy = true
 
 var time_left = 0
 var health
@@ -38,8 +39,10 @@ func _process(delta):
 		var t = sprite.instance()
 		s.get_node("Body").velocity = Vector2(player_pos.x - pos.x, player_pos.y - pos.y).normalized() * 75
 		s.set_bullet_damage(bullet_damage)
+		s.set_can_damage_enemy(false)
 		t.get_node("Body").velocity = Vector2(player_pos.x - pos.x, player_pos.y - pos.y).normalized() * 75
 		t.set_bullet_damage(bullet_damage)
+		t.set_can_damage_enemy(false)
 		get_parent().add_child(s)
 		get_parent().add_child(t)
 		s.global_position = Vector2(pos.x - .4 * (pos.x - player_pos.x) / 2, pos.y - .4 * (pos.y - player_pos.y) / 2)
