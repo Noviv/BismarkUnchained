@@ -8,7 +8,7 @@ onready var rng = RandomNumberGenerator.new()
 const wave_length = 12
 const wave_warning = 6
 
-var wave_num = 10
+var wave_num = 1
 var wave_reminder_sent = false
 
 # Called when the node enters the scene tree for the first time.
