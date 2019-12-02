@@ -13,7 +13,7 @@ var rof = 0.75
 # Upgrade values
 const rof_upgrade = 0.9
 const maxhealth_upgrade = 25
-const regen_upgrade = 2
+const regen_upgrade = 0.25
 const lifesteal_upgrade = 2
 
 func _ready():
