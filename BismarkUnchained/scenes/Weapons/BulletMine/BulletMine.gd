@@ -10,7 +10,7 @@ func generate_spawn_locations():
 	# (x, y) = offset/direction from mine's location
 	# z = velocity
 	return [
-				Vector3(10, 0, 100),
+				Vector3(10, 10, 100),
 				Vector3(-10, 10, 100),
 				Vector3(10, -10, 100),
 				Vector3(-10, -10, 100)
