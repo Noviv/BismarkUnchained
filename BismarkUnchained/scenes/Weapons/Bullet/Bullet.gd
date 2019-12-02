@@ -32,10 +32,7 @@ func set_bullet_object_to_home(object):
 func set_bullet_velocity(vel):
 	velocity = vel
 	$Body.velocity = vel
-<<<<<<< HEAD
-=======
 	
 func set_bullet_damage(dmg):
 	damage = dmg
 	$Body.bullet_damage = dmg
->>>>>>> master
