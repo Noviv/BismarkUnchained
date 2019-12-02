@@ -21,6 +21,7 @@ func spawn_bullets():
 		var dir = Vector2(spawn.x, spawn.y)
 		var bullet = bullet_scene.instance()
 		bullet.set_bullet_velocity(dir.normalized() * spawn.z)
+		bullet.set_bullet_damage(50)
 		get_parent().add_child(bullet)
 		bullet.global_position = get_global_position() + dir
 

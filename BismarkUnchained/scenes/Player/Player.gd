@@ -10,10 +10,14 @@ var curr_velocity = Vector2(0, 0)
 
 # Bullet variables
 onready var bullet_sprite = preload("res://scenes/Weapons/Bullet/Bullet.tscn")
+onready var bullet_mine_sprite = preload("res://scenes/Weapons/BulletMine/BulletMine.tscn")
 const bullet_velocity = 1000
+var bullet_damage = 50
 
 var time_last_shot = -1
 var last_dir = Vector2(0, 0)
+
+var secondary_recharge = 0
 
 # Upgrades
 var upgrades = 0
@@ -27,11 +31,8 @@ var health = 100
 var experience = 0
 var level = 1
 
-# Regen variables
-var last_regen = 0
-
-func damage():
-	health -= 5
+func damage(dmg):
+	health -= dmg
 	get_node('/root/Main/UI/Health').value = health * 100 / maxhealth
 
 func move_translate(delta):
@@ -76,6 +77,7 @@ func shoot():
 			sprite.set_scale(Vector2(1.4, 1.4))
 			sprite.set_modulate(Color(0, 0, 0, 1))
 			sprite.set_bullet_velocity(last_dir.normalized() * bullet_velocity)
+			sprite.set_bullet_damage(bullet_damage)
 			
 			# Add scene
 			get_parent().add_child(sprite)
@@ -86,10 +88,15 @@ func shoot():
 	get_node("/root/Main/UI/WeaponRecharge").value = 100 * (get_node("/root/Main").time_elapsed - time_last_shot) / time_to_shoot
 
 func regen():
-	health += regen * (get_node("/root/Main").time_elapsed - last_regen)
+	health += regen * get_node("/root/Main").game_time_since_frame
 	if health > maxhealth:
 		health = maxhealth
-	last_regen = get_node("/root/Main").time_elapsed
+	get_node('/root/Main/UI/Health').value = health * 100 / maxhealth
+
+func lifesteal(dmg):
+	health += dmg * lifesteal / 100
+	if health > maxhealth:
+		health = maxhealth
 	get_node('/root/Main/UI/Health').value = health * 100 / maxhealth
 
 func update_exp(exp_val):
@@ -150,10 +157,17 @@ func _input(event):
 			curr_max_velocity += (max_velocity - max_velocity * get_node("/root/Main").min_time_delta) / 20
 			curr_accel += (accel - accel * get_node("/root/Main").min_time_delta) / 20
 			get_node("/root/Main/UI/TimeDelta").value =100 * curr_max_velocity / max_velocity
+	elif event.is_action_pressed("player_secondary"):
+		if secondary_recharge <= 0:
+			var sprite = bullet_mine_sprite.instance()
+			get_parent().add_child(sprite)
+			sprite.global_position = get_global_position() + 50 * (get_global_mouse_position() - get_global_position()).normalized()
+			secondary_recharge = 1
 
 func _physics_process(delta):
 	move_translate(delta)
 	move_rotate()
 	shoot()
 	regen()
+	secondary_recharge -= get_node("/root/Main").game_time_since_frame
 	get_node("/root/Main").set_time_delta(curr_max_velocity / max_velocity)

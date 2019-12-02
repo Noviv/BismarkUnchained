@@ -9,11 +9,13 @@ const aim_speed = deg2rad(1) * 3.2
 var time_left = 0
 var health
 
+var bullet_damage = 20
+
 func _ready():
 	health = 100
 
-func damage():
-	health -= 20
+func damage(dmg):
+	health -= dmg
 
 func _process(delta):
 	var time_scale = get_node("/root/Main").get_time_delta()
@@ -36,6 +38,7 @@ func _process(delta):
 		var s = sprite.instance()
 		s.set_can_damage_enemy(false)
 		s.set_bullet_velocity(Vector2(player_pos.x - pos.x, player_pos.y - pos.y).normalized() * 100)
+		s.set_bullet_damage(bullet_damage)
 		get_parent().add_child(s)
 		s.global_position = Vector2(pos.x - .4 * (pos.x - player_pos.x) / 2, pos.y - .4 * (pos.y - player_pos.y) / 2)
 		time_left = .5

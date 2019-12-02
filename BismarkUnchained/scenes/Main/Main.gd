@@ -8,6 +8,8 @@ var time_delta = 1
 var score = 0
 var time_elapsed = 0
 
+var game_time_since_frame = 0
+
 func get_time_delta():
 	return time_delta
 
@@ -32,3 +34,4 @@ func up_score(points):
 
 func _process(delta):
 	time_elapsed += delta * time_delta
+	game_time_since_frame = delta * time_delta
