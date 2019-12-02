@@ -65,7 +65,7 @@ margin_top = 200.0
 margin_right = 400.0
 margin_bottom = 500.0
 bbcode_enabled = true
-bbcode_text = "[center]Welcome to [color=red]Bismark Unchained[/color]![/center]
+bbcode_text = "[center]Welcome to [color=red]Bismarck Unchained[/color]![/center]
 
 Here are some basic instructions:
 [indent]- Left click to shoot[/indent]
@@ -79,7 +79,7 @@ This game revolves around speeding up and slowing down time - use that to your a
 Be sure to keep upgrading, as enemies get harder and more complicated.
 
 Good luck!"
-text = "Welcome to Bismark Unchained!
+text = "Welcome to Bismarck Unchained!
 
 Here are some basic instructions:
 	- Left click to shoot

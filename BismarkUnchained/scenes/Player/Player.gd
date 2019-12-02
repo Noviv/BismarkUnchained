@@ -38,8 +38,8 @@ func damage(dmg):
 func move_translate(delta):
 	if health <= 0:
 		# TODO: pull score and display it on end screen
-		if get_tree().change_scene("res://scenes/UI/EndScreen.tscn") != OK:
-			print('failed to switch to end screen')
+		if get_tree().change_scene("res://scenes/UI/StartScreen.tscn") != OK:
+			print('failed to switch to main screen on death')
 			get_tree().quit()
 
 	var x = int(Input.is_action_pressed("player_right")) - int(Input.is_action_pressed("player_left"))
