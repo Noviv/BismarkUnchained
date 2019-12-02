@@ -17,7 +17,7 @@ func init(size):
 	pos = get_global_position()
 
 
-func damage():
+func damage(dmg):
 	if(scale.x > .33):
 		var child1 = child.instance()
 		var child2 = child.instance()

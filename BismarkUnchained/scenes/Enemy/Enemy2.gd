@@ -11,8 +11,8 @@ var health
 func _ready():
 	health = 100
 
-func damage():
-	health -= 20
+func damage(dmg):
+	health -= dmg
 
 func _process(delta):
 	var time_scale = get_node("/root/Main").get_time_delta()
