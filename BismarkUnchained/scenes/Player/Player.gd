@@ -171,3 +171,5 @@ func _physics_process(delta):
 	regen()
 	secondary_recharge -= get_node("/root/Main").game_time_since_frame
 	get_node("/root/Main").set_time_delta(curr_max_velocity / max_velocity)
+	get_node("../Camera").zoom = Vector2.ONE * get_node("/root/Main").get_time_delta()
+	get_node("../Camera").position = get_global_position() - Vector2(630, 360)
