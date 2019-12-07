@@ -25,5 +25,8 @@ margin_right = 2560.0
 margin_bottom = 1440.0
 texture = ExtResource( 5 )
 stretch_mode = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Wall" parent="." instance=ExtResource( 6 )]
