@@ -1,23 +1,25 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://scenes/Enemy/Enemy2.gd" type="Script" id=1]
-[ext_resource path="res://scenes/Enemy/58afdad6829958a978a4a693.png" type="Texture" id=2]
-
-[sub_resource type="CircleShape2D" id=1]
-radius = 17.204
+[ext_resource path="res://images/alien3.png" type="Texture" id=2]
 
 [node name="Node2D" type="Node2D"]
 
 [node name="KinematicBody2D" type="KinematicBody2D" parent="."]
 script = ExtResource( 1 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="KinematicBody2D"]
-shape = SubResource( 1 )
-
 [node name="Sprite" type="Sprite" parent="KinematicBody2D"]
-scale = Vector2( 0.018, 0.018 )
+modulate = Color( 1, 0, 0, 1 )
+rotation = 1.5708
+scale = Vector2( 0.3, 0.3 )
 texture = ExtResource( 2 )
 
 [node name="shoot_ray" type="RayCast2D" parent="KinematicBody2D"]
 enabled = true
 cast_to = Vector2( 1000, 0 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="KinematicBody2D"]
+visible = false
+rotation = 1.5708
+scale = Vector2( 0.3, 0.3 )
+polygon = PoolVector2Array( 21.5, -102.7, 21.5, -100.5, 23.6, -97, 29.5, -98.6, 29.5, -95.7, 33.8, -90, 39.3, -100, 43.3, -100, 47.5, -95.8, 47.5, -90.3, 55, -67.9, 62.5, -65.4, 62.5, -33, 61.2, -33, 56.2, -6, 54.6, -6, 42.5, 13.6, 42.5, 16.4, 31.5, 42.3, 31.5, 46.2, 27.5, 66.4, 27.5, 89, 25.2, 89, 23.5, 90.1, 23.5, 101.8, 20.3, 105, 15.2, 105, 10.5, 94.4, 10.5, 88, 7.5, 68.1, 7.5, 45, 1.7, 45, -0.299999, 43, -1, 43, -8.5, 46, -8.5, 42.5, -10.5, 97, -12.1, 97, -15.1, 105, -20.3, 105, -23.5, 101.8, -23.5, 90.5, -27.5, 89.6, -27.5, 66.4, -34.2, 35, -34.8, 35, -45.9, 8, -46.7, 8, -58.5, -12.5, -58.5, -17, -62.5, -32.1, -62.5, -66, -60.8, -66, -56.5, -66.7, -56.5, -67.6, -50.5, -76.6, -50.5, -78.2, -47.2, -97, -45.6, -97, -43.6, -100, -39.3, -100, -34.4, -91.1, -28.4, -98, -24.5, -98, -24.5, -98.8, -20.3, -103, -15.8, -103, -7.5, -105.5, -7.5, -107.3 )

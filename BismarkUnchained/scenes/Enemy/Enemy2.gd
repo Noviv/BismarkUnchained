@@ -8,11 +8,14 @@ const is_enemy = true
 
 var time_left = 0
 var health
+var player_pos
 
 var bullet_damage = 20
 
 func _ready():
-	health = 100
+	player_pos = get_node("../../Player/PlayerBody").get_global_position()
+	rotation += get_angle_to(player_pos)
+	health = 160
 
 func damage(dmg):
 	health -= dmg
@@ -24,13 +27,13 @@ func _process(delta):
 		queue_free()
 	
 	var pos = get_global_position()
-	var player_pos = get_node("../../Player/PlayerBody").get_global_position()
+	player_pos = get_node("../../Player/PlayerBody").get_global_position()
 	var dir = (player_pos - pos).normalized()
 	move_and_collide(dir * time_scale * .8)
 	
-	if get_angle_to(player_pos) > 0:
+	if get_angle_to(player_pos) > 0.05:
 		rotation += aim_speed * time_scale
-	elif get_angle_to(player_pos) < 0:
+	elif get_angle_to(player_pos) < -0.05:
 		rotation -= aim_speed * time_scale
 	
 
