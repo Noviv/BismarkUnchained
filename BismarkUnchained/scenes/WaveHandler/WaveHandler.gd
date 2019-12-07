@@ -3,6 +3,7 @@ extends Node2D
 onready var WUI = get_node("../UI")
 onready var Enemy = load("res://scenes/Enemy/Enemy.tscn")
 onready var Spawner = load("res://scenes/WaveHandler/Spawner.tscn")
+onready var BossSpawner = load("res://scenes/WaveHandler/BossSpawner.tscn")
 onready var rng = RandomNumberGenerator.new()
 
 const wave_length = 12
@@ -19,16 +20,26 @@ func _ready():
 	
 func _process(delta):
 	if $WaveTimer.get_time_left() < wave_warning && !wave_reminder_sent:
-		WUI.get_node("WaveWarningLabel").set_text("Wave " + String(wave_num) + " starting in " + String(wave_warning) +" seconds")
-		spawn_enemies()
+		
 		wave_reminder_sent = true
+		if (wave_num) % 10 == 0:
+			WUI.get_node("WaveWarningLabel").set_text("Wave " + String(wave_num) + " starting in " + String(wave_warning) +" seconds")
+			spawn_boss()
+		else:
+			WUI.get_node("WaveWarningLabel").set_text("Wave " + String(wave_num) + " starting in " + String(wave_warning) +" seconds")
+			spawn_enemies()
 
 func start_next_wave():
-	wave_num += 1
-	WUI.get_node("WaveWarningLabel").set_text("Wave " + String(wave_num - 1) + " starting now")
+	
+	WUI.get_node("WaveWarningLabel").set_text("Wave " + String(wave_num) + " starting now")
 	WUI.get_node("WaveCounter/Value").set_text(String(wave_num))
 	
-	$WaveTimer.start(wave_length)
+	if (wave_num) % 10 == 0:
+		$WaveTimer.start(wave_length * 2)
+	else:
+		$WaveTimer.start(wave_length)
+		
+	wave_num += 1
 	wave_reminder_sent = false
 
 func _on_Timer_timeout():
@@ -58,7 +69,13 @@ func spawn_enemies():
 				if enemy_count >= 4:
 					spawn_square(center)
 					enemy_count -= 4
-		
+					
+func spawn_boss():
+	get_node("/root/Main/Player/PlayerBody").save()
+	var tempSpawn = BossSpawner.instance()
+	tempSpawn.position = Vector2(640, 360)
+	get_parent().call_deferred("add_child", tempSpawn)
+	
 
 func spawn_circle(center, count):
 	var radius = count * 8

@@ -28,9 +28,9 @@ func _process(delta):
 	var dir = (player_pos - pos).normalized()
 	move_and_collide(dir * time_scale)
 	
-	if get_angle_to(player_pos) > 0:
+	if get_angle_to(player_pos) > 0.05:
 		rotation += aim_speed * time_scale
-	elif get_angle_to(player_pos) < 0:
+	elif get_angle_to(player_pos) < -0.05:
 		rotation -= aim_speed * time_scale
 	
 
