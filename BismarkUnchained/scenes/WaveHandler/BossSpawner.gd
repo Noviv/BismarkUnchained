@@ -4,7 +4,7 @@ onready var Boss = load("res://scenes/Enemy/Boss.tscn")
 onready var rng = get_node("/root/Main/WaveHandler").rng
 
 func _ready():
-	$Timer.start(2)
+	$Timer.start(6)
 
 func _on_Timer_timeout():
 	var tempSpawn = Boss.instance()
