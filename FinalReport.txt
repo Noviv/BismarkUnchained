@@ -1,1 +1,104 @@
-WIP
+Bismark Unchained: Final Report
+
+We started Bismark Unchained aiming to create a game based on scaling time
+with player velocity, drawing influences and inspiration from SUPERHOT,
+bullet hells, and top-down 2D shooters we’ve all played before. Seeing
+as our core feature was technically interesting but did not create a fun
+game by itself, we also set out to add other technical features like a
+group of specialized/mutually exclusive, infinitely scaling skill trees,
+and possibly new abilities and weaponry. Since our original Bismark group
+had expanded, we knew we had the technical capacity to build out such
+a game with a little bit of organization and consistent meetings. After
+the first couple of meetings we narrowed down who would focus on what:
+Ben would focus on UI and enemy waves/balance, Shray would develop player
+mechanics/controls, Victor would create enemies and focus on overall
+balance, and Matthew would help with UI and implement weaponry. As
+we approached the end of this project, our goals had to become more
+realistic. This meant we had to drop ideas we knew we had the capacity,
+but not time for. In the end, our goal was basically to have a fun,
+playable game with a sensible upgrade system and a clear path towards
+new features. A "clear path" means a direction for the game to be
+improved without massive reworks, and not taken simply due to a lack of
+time. Additionally, we wanted to balance the game and make it feel more
+rewarding to level up. We feel we achieved an MVP with the Alpha version
+of this game, and with this final submission the game is in a playable,
+extensible state that we can all be proud of.
+
+The basic enemy functions have been completed, but need to be refined
+and balanced. Currently, the enemy continually walks and turns toward
+the player, shooting when the player is within line of sight. Shooting
+is simply achieved by creating a child instance of the Bullet scene in
+front of the enemy, which has its own movement script. The enemy’s
+movement and shooting are both scaled with respect to our global time
+variable. The faster the player moves, the faster enemies move and the
+faster they are able to shoot more bullets. We still need to find a good
+balance for enemy shooting/movement speed relative to player actions,
+but the current state is a functional MVP. Furthermore, we are considering
+using some sort of advanced pathfinding for enemies to track the player,
+but have not planned how this would interact with other game elements yet.
+
+The enemy wave spawning is our main source of “procedural
+generation”. For the Alpha enemies spawn in randomly generated circular
+formations, making it seem like the player is fighting swarms instead of
+individuals. They will spawn in a random number of formations and random
+numbers within the formations. The number of enemies that spawn will
+scale with wave number, thus making the game more chaotic and complicated
+as the player progresses through waves. Further in development, when we
+have more enemy types, this feature will enable much more interesting
+gameplay strategies. With more enemy types the waves - including bosses
+- and formations will become more varied and add a new element to the
+challenge of the game.
+
+Our game’s unique mechanic, scaling the passage of time to
+the player’s movement speed, demands precise control of player
+velocity. Because of this, our team was hesitant to use keyboard
+controls. Traditional WASD keyboard movement controls would allow
+only full speed or 0 velocity inputs in 4 directions. However, we also
+recognized the technical and logistical issues of requiring a controller
+to play our game, namely 1) not everyone has access to a controller and 2)
+controller axis interpretation changes across platforms. It would become
+more challenging to test and demonstrate and would be subject to less
+consistent input. In the end, we decided to use WASD keyboard and mouse
+controls, with an additional player slow-down with left shift. We control
+player movement with WASD with a separate acceleration and deceleration
+curves. The player always faces the cursor, and left-clicking will
+fire a bullet if enough in-game time has passed since the last time
+the player shot a bullet - this allows for point-and-click aiming which
+is preferable over joystick aiming (#PCmasterrace). These are standard
+controls for a 2D game of this style, and we believe players should have
+no issues adjusting to these controls.
+
+As of the final project, we have multiple weapon types and a modular
+system to replace and safely destory weapons - weapons include multiple
+bullet types, lasers, mines, and a shield. All are implemented with
+a reload delay so that enemies can’t fill the screen with bullets,
+and players can’t take advantage of the time scaling feature to stack
+bullets in a short time frame. Technically both of these problems could
+be considered features of our game seeing as our core feature is the
+time scaling, but after playtesting we determined to add limitations
+created better gameplay for higher difficulty waves. We also wanted a
+way to differentiate between bullet direction and ownership, namely
+because a player bullet should not be able to hurt the player. This
+has become functionally important since we added more weapon types for
+the final project, but for now, the disambiguation adds to overall game
+feel. Combined with the player reload animation on the overlay, the final
+product has built off our core feature and truly become the minimally
+viable product we were aiming for. Beyond that we have created a system
+that makes it easy, from a development and game design standpoint, to
+add and test new weapons without worrying about wasting system resources,
+developer time, or getting too frusturated with reworks.
+
+Overall, we feel that this project was a success and our team organization
+allowed us to reach all the MVP goals we aimed for. As the final due
+date approached we definitely had to cut down on features we wanted to
+add and new ideas that we knew would make the game more fun, but thanks
+to our clear vision of the game and acknowledgement of the requirements,
+we were able to deliverr.  The utilization of Godot and our previous
+experience to build and test the core feature of our game gave us a clear
+path forward to a playable, fun game and taught us a development process
+that allows us to separate tasks. Following the same trajectory, we were
+able to complete a skill tree, better UI, textures, and new weaponry for
+the final project. This allowed for more interesting gameplay strategies
+and permanently scaling abilities (enabling a prestige or save-file
+system), making it more fun to develop and - more importantly - more
+fun to play and watch.
