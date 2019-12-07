@@ -8,10 +8,13 @@ const aim_speed = deg2rad(1) * 3.2
 
 var time_left = 0
 var health
+var player_pos
 
 var bullet_damage = 20
 
 func _ready():
+	player_pos = get_node("../../Player/PlayerBody").get_global_position()
+	rotation += get_angle_to(player_pos)
 	health = 100
 
 func damage(dmg):
@@ -24,7 +27,7 @@ func _process(delta):
 		queue_free()
 	
 	var pos = get_global_position()
-	var player_pos = get_node("../../Player/PlayerBody").get_global_position()
+	player_pos = get_node("../../Player/PlayerBody").get_global_position()
 	var dir = (player_pos - pos).normalized()
 	move_and_collide(dir * time_scale)
 	
