@@ -9,7 +9,7 @@ onready var rng = RandomNumberGenerator.new()
 const wave_length = 12
 const wave_warning = 6
 
-var wave_num = 9
+var wave_num = 1
 var wave_reminder_sent = false
 
 # Called when the node enters the scene tree for the first time.
@@ -52,10 +52,11 @@ func spawn_point(center):
 	
 func spawn_enemies():
 	get_node("/root/Main/Player/PlayerBody").save()
+	var player_pos = get_node("../Player/PlayerBody").get_global_position()
 	var enemy_count = wave_num
 	while enemy_count > 0:
-		var x = rng.randi_range(50, 1150)
-		var y = rng.randi_range(50, 550)
+		var x = rng.randi_range(player_pos.x - 650, player_pos.x + 650)
+		var y = rng.randi_range(player_pos.y - 325, player_pos.y + 325)
 		var center  = Vector2(x, y)
 		var rand_count = 32
 		while(rand_count > 25):
@@ -73,7 +74,7 @@ func spawn_enemies():
 func spawn_boss():
 	get_node("/root/Main/Player/PlayerBody").save()
 	var tempSpawn = BossSpawner.instance()
-	tempSpawn.position = Vector2(640, 360)
+	tempSpawn.position = Vector2(0, 0)
 	get_parent().call_deferred("add_child", tempSpawn)
 	
 
@@ -110,13 +111,13 @@ func place_spawner(center):
 	
 func center_in_bound(center, unit):
 	if (center.x + unit) > 1150:
-		center.x = center.x - unit
-	elif (center.x - unit) < 100:
-		center.x = center.x + unit
+		center.x = 1150 - unit
+	elif (center.x - unit) < -1150:
+		center.x = -1150 + unit
 	
 	if (center.y + unit) > 590:
-		center.y = center.y - unit
-	elif (center.y - unit) < 110:
-		center.y = center.y + unit
+		center.y = 590 - unit
+	elif (center.y - unit) < -590:
+		center.y = -590 + unit
 		
 	return center
