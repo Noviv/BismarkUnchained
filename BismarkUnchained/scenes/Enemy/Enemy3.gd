@@ -11,13 +11,16 @@ var time_left = 0
 var pos
 
 var bullet_damage = 20
+var player_pos
 
 func _ready():
-	pass
+	player_pos = get_node("../../Player/PlayerBody").get_global_position()
+	rotation += get_angle_to(player_pos)
 	
 func init(size):
 	scale = size
 	pos = get_global_position()
+	
 
 
 func damage(dmg):
