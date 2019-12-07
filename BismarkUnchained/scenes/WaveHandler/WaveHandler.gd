@@ -1,6 +1,6 @@
 extends Node2D
 
-onready var WUI = get_node("/root/Main/Player/UI")
+onready var WUI = get_node("/root/Main/Player/Camera/CanvasLayer/UI")
 onready var Enemy = load("res://scenes/Enemy/Enemy.tscn")
 onready var Spawner = load("res://scenes/WaveHandler/Spawner.tscn")
 onready var BossSpawner = load("res://scenes/WaveHandler/BossSpawner.tscn")

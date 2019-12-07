@@ -1,6 +1,6 @@
 extends Node2D
 
-onready var WUI = get_node("/root/Main/Player/UI")
+onready var WUI = get_node("/root/Main/Player/Camera/CanvasLayer/UI")
 
 const min_time_delta = 0.1
 

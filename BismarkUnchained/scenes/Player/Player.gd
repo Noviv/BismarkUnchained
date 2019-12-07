@@ -27,13 +27,14 @@ var lifesteal = 0
 var time_to_shoot = 0.75
 
 # Player attribute variables
+onready var WUI = get_node("../Camera/CanvasLayer/UI")
 var health = 100
 var experience = 0
 var level = 1
 
 func damage(dmg):
 	health -= dmg
-	get_node('/root/Main/Player/UI/Health').value = health * 100 / maxhealth
+	WUI.get_node('Health').value = health * 100 / maxhealth
 
 func move_translate(delta):
 	if health <= 0:
@@ -84,28 +85,28 @@ func shoot():
 			sprite.global_position = get_global_position() + last_dir.normalized() * 50
 			
 			# Reset recharge
-			get_node("/root/Main/Player/UI/WeaponRecharge").value = 0
-	get_node("/root/Main/Player/UI/WeaponRecharge").value = 100 * (get_node("/root/Main").time_elapsed - time_last_shot) / time_to_shoot
+			WUI.get_node("WeaponRecharge").value = 0
+	WUI.get_node("WeaponRecharge").value = 100 * (get_node("/root/Main").time_elapsed - time_last_shot) / time_to_shoot
 
 func regen():
 	health += regen * get_node("/root/Main").game_time_since_frame
 	if health > maxhealth:
 		health = maxhealth
-	get_node('/root/Main/Player/UI/Health').value = health * 100 / maxhealth
+	WUI.get_node('Health').value = health * 100 / maxhealth
 
 func lifesteal(dmg):
 	health += dmg * lifesteal / 100
 	if health > maxhealth:
 		health = maxhealth
-	get_node('/root/Main/Player/UI/Health').value = health * 100 / maxhealth
+	WUI.get_node('Health').value = health * 100 / maxhealth
 
 func update_exp(exp_val):
 	experience += exp_val
 	while experience >= exp_req(level + 1):
 		level += 1
 		upgrades += 1
-	get_node("/root/Main/Player/UI/ExpReq").value = 100 * (experience - exp_req(level)) / (exp_req(level + 1) - exp_req(level))
-	get_node("/root/Main/Player/UI/LevelLabel").text = "Player Level: " + str(level)
+	WUI.get_node("ExpReq").value = 100 * (experience - exp_req(level)) / (exp_req(level + 1) - exp_req(level))
+	WUI.get_node("LevelLabel").text = "Player Level: " + str(level)
 
 func exp_req(next_level):
 	return 500 * pow(next_level, 2) - 500 * next_level
@@ -142,21 +143,21 @@ func _input(event):
 	if event.is_action_pressed("player_mintime"):
 		curr_max_velocity = max_velocity * get_node("/root/Main").min_time_delta
 		curr_accel = accel * get_node("/root/Main").min_time_delta
-		get_node("/root/Main/Player/UI/TimeDelta").value = 100 * curr_max_velocity / max_velocity
+		WUI.get_node("TimeDelta").value = 100 * curr_max_velocity / max_velocity
 	elif event.is_action_pressed("player_maxtime"):
 		curr_max_velocity = max_velocity
 		curr_accel = accel
-		get_node("/root/Main/Player/UI/TimeDelta").value = 100 * curr_max_velocity / max_velocity
+		WUI.get_node("TimeDelta").value = 100 * curr_max_velocity / max_velocity
 	elif event.is_action_pressed("player_dectime"):
 		if curr_max_velocity > max_velocity * get_node("/root/Main").min_time_delta:
 			curr_max_velocity -= (max_velocity - max_velocity * get_node("/root/Main").min_time_delta) / 20
 			curr_accel -= (accel - accel * get_node("/root/Main").min_time_delta) / 20
-			get_node("/root/Main/Player/UI/TimeDelta").value = 100 * curr_max_velocity / max_velocity
+			WUI.get_node("TimeDelta").value = 100 * curr_max_velocity / max_velocity
 	elif event.is_action_pressed("player_inctime"):
 		if curr_max_velocity < max_velocity:
 			curr_max_velocity += (max_velocity - max_velocity * get_node("/root/Main").min_time_delta) / 20
 			curr_accel += (accel - accel * get_node("/root/Main").min_time_delta) / 20
-			get_node("/root/Main/Player/UI/TimeDelta").value =100 * curr_max_velocity / max_velocity
+			WUI.get_node("TimeDelta").value =100 * curr_max_velocity / max_velocity
 	elif event.is_action_pressed("player_secondary"):
 		if secondary_recharge <= 0:
 			var sprite = bullet_mine_sprite.instance()
@@ -171,8 +172,4 @@ func _physics_process(delta):
 	regen()
 	secondary_recharge -= get_node("/root/Main").game_time_since_frame
 	get_node("/root/Main").set_time_delta(curr_max_velocity / max_velocity)
-	get_node("../Camera").position = get_global_position() - Vector2(640, 360)
-	
-	var ctrans = get_node("../Camera").get_canvas_transform()
-	var min_pos = -ctrans.get_origin() / ctrans.get_scale()
-	get_node("../UI").rect_position = min_pos - Vector2(640, 360)
+	get_node("../Camera").position = get_global_position()
