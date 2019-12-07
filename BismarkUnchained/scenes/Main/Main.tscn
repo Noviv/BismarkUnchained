@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://scenes/Main/Main.gd" type="Script" id=1]
 [ext_resource path="res://scenes/Player/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/UI/PauseScene.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/WaveHandler/WaveHandler.tscn" type="PackedScene" id=4]
 [ext_resource path="res://images/background.jpg" type="Texture" id=5]
+[ext_resource path="res://scenes/Wall/Wall.tscn" type="PackedScene" id=6]
 
 [node name="Main" type="Node2D"]
 script = ExtResource( 1 )
@@ -18,7 +19,11 @@ position = Vector2( 640, 360 )
 
 [node name="TextureRect" type="TextureRect" parent="."]
 show_behind_parent = true
-margin_right = 1280.0
-margin_bottom = 720.0
+margin_left = -2560.0
+margin_top = -1440.0
+margin_right = 2560.0
+margin_bottom = 1440.0
 texture = ExtResource( 5 )
 stretch_mode = 2
+
+[node name="Wall" parent="." instance=ExtResource( 6 )]
