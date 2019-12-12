@@ -1,13 +1,12 @@
 extends Node2D
 
-const DOT = 100
+const DOT = 200
 
 var shooting = false
 
 func set_shooting(s):
 	shooting = s
 	$Raycast.enabled = s
-	$Particles.emitting = s
 	if !s:
 		$Line.set_point_position(1, Vector2(0, 0))
 
@@ -23,6 +22,5 @@ func cast_beam(delta):
 		$Line.set_point_position(1, Vector2(0, 0))
 
 func _physics_process(delta):
-	$Particles.speed_scale = get_node('/root/Main').get_time_delta()
 	if shooting:
 		cast_beam(delta)

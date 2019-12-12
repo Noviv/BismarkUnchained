@@ -11,6 +11,9 @@ var bullet_damage = 0
 func _ready():
 	rotation = velocity.angle()
 
+func damage(dmg):
+	get_parent().queue_free()
+
 func _physics_process(delta):
 	if homing_object:
 		var dir = get_global_position().direction_to(homing_object.get_global_position())

@@ -106,6 +106,7 @@ func lifesteal(dmg):
 
 func update_exp(exp_val):
 	experience += exp_val
+	
 	while experience >= exp_req(level + 1):
 		level += 1
 		upgrades += 1

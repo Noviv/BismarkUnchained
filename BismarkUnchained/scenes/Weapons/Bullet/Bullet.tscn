@@ -4,7 +4,7 @@
 [ext_resource path="res://scenes/Weapons/Bullet/Body.gd" type="Script" id=2]
 [ext_resource path="res://images/bullet.png" type="Texture" id=3]
 
-[sub_resource type="ParticlesMaterial" id=5]
+[sub_resource type="ParticlesMaterial" id=1]
 emission_shape = 1
 emission_sphere_radius = 2.0
 flag_disable_z = true
@@ -15,7 +15,7 @@ angular_velocity = 1.0
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
 
-[sub_resource type="ParticlesMaterial" id=6]
+[sub_resource type="ParticlesMaterial" id=2]
 emission_shape = 1
 emission_sphere_radius = 1.5
 flag_disable_z = true
@@ -52,9 +52,9 @@ amount = 250
 lifetime = 0.5
 one_shot = true
 explosiveness = 0.8
-process_material = SubResource( 5 )
+process_material = SubResource( 1 )
 
 [node name="Afterburner" type="Particles2D" parent="."]
 lifetime = 0.5
 local_coords = false
-process_material = SubResource( 6 )
+process_material = SubResource( 2 )
