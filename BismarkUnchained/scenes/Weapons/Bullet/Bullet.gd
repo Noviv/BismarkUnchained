@@ -36,3 +36,7 @@ func set_bullet_velocity(vel):
 func set_bullet_damage(dmg):
 	damage = dmg
 	$Body.bullet_damage = dmg
+	
+func set_color(col):
+	$Explosion.set_modulate(col)
+	$Afterburner.set_modulate(col)

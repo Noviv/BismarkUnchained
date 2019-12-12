@@ -76,7 +76,7 @@ func shoot():
 			# Instance bullet scene
 			var sprite = bullet_sprite.instance()
 			sprite.set_scale(Vector2(1.4, 1.4))
-			sprite.set_modulate(Color(0, 0, 255, 1))
+			sprite.set_color(Color(0, 0, 255, 1))
 			sprite.set_bullet_velocity(last_dir.normalized() * bullet_velocity)
 			sprite.set_bullet_damage(bullet_damage)
 			
@@ -86,6 +86,10 @@ func shoot():
 			
 			# Reset recharge
 			WUI.get_node("WeaponRecharge").value = 0
+	elif Input.is_action_just_pressed("player_secondary_shoot"):
+		$Laser.set_shooting(true)
+	elif Input.is_action_just_released("player_secondary_shoot"):
+		$Laser.set_shooting(false)
 	WUI.get_node("WeaponRecharge").value = 100 * (get_node("/root/Main").time_elapsed - time_last_shot) / time_to_shoot
 
 func regen():
