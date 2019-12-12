@@ -44,7 +44,7 @@ func _process(delta):
 			s.set_can_damage_enemy(false)
 			s.set_bullet_velocity(Vector2(bullet_radius.x, bullet_radius.y).normalized() * 100)
 			s.set_bullet_damage(bullet_damage * .75)
-			s.set_modulate(Color(0, 255, 0, 1))
+			s.set_color(Color(0, 255, 0, 1))
 			print(bullet_radius)
 			get_parent().add_child(s)
 			s.global_position = Vector2(bullet_radius.x * 12, bullet_radius.y * 12) + get_global_position()
@@ -59,7 +59,7 @@ func _process(delta):
 		s.set_bullet_velocity(Vector2(player_pos.x - pos.x, player_pos.y - pos.y).normalized() * 200)
 		s.set_bullet_damage(bullet_damage)
 		s.set_bullet_object_to_home(get_node("../../Player/PlayerBody"))
-		s.set_modulate(Color(255, 0, 0, 1))
+		s.set_color(Color(255, 0, 0, 1))
 		get_parent().add_child(s)
 		s.global_position = Vector2(pos.x - .6 * (pos.x - player_pos.x) / 2, pos.y - .6 * (pos.y - player_pos.y) / 2)
 		time_left = .33

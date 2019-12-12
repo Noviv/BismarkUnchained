@@ -1,6 +1,6 @@
 extends Node2D
 
-const DOT = 10
+const DOT = 100
 
 var shooting = false
 
